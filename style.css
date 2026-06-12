@@ -7,7 +7,99 @@
 body{
     font-family:'Poppins', sans-serif;
     background:#DDD1D1;
+}
+
+.login-container{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.login-box{
+    width:400px;
+    background:white;
+    padding:40px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+    text-align:center;
+}
+
+.login-box h1{
+    font-family:'Playfair Display', serif;
+    font-size:2.5rem;
+    color:#7A4C3B;
+    letter-spacing:5px;
+}
+
+.subtitulo{
+    display:block;
+    margin-bottom:30px;
+    color:#7A4C3B;
+    letter-spacing:6px;
+    font-size:.8rem;
+}
+
+.login-box h2{
+    margin-bottom:25px;
     color:#111;
+}
+
+.input-group{
+    text-align:left;
+    margin-bottom:20px;
+}
+
+.input-group label{
+    display:block;
+    margin-bottom:8px;
+    font-size:.9rem;
+    color:#444;
+}
+
+.input-group input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    font-size:1rem;
+}
+
+.input-group input:focus{
+    outline:none;
+    border-color:#7A4C3B;
+}
+
+.btn-login{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:8px;
+    background:#7A4C3B;
+    color:white;
+    font-size:1rem;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn-login:hover{
+    background:#633d2f;
+}
+
+.registro{
+    margin-top:20px;
+    font-size:.9rem;
+}
+
+.registro a{
+    color:#7A4C3B;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.registro a:hover{
+    text-decoration:underline;
 }
 
 .navbar{
@@ -142,7 +234,7 @@ body{
         rgba(0,0,0,.4),
         rgba(0,0,0,.4)
     ),
-    url("https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=1600");
+    url("https://img.freepik.com/fotos-premium/beautiful-arrangement-of-perfume-bottles-in-pink-tones-on-table-top-view_107288-13500.jpg");
     background-size:cover;
     background-position:center;
     color:white;
@@ -219,6 +311,7 @@ text-align:center;
 background:white;
 border-radius:10px;
 transition:0.3s;
+position:relative;
 }
 
 .product-card:hover{
@@ -350,7 +443,6 @@ border-radius:5px;
     cursor:pointer;
 }
 
-
 footer{
     padding:40px;
     text-align:center;
@@ -384,4 +476,39 @@ footer{
     .hero-content h1{
         font-size:2.5rem;
     }
+}
+
+.cart-container{
+    font-size:18px;
+    font-weight:bold;
+}
+
+#contador{
+    margin-left:5px;
+}
+
+#buscador{
+    width:100%;
+    max-width:400px;
+    display:block;
+    margin:0 auto 40px auto;
+    padding:12px;
+    border:1px solid #ccc;
+}
+
+.product-card{
+    position:relative;
+}
+
+.favorito{
+    position:absolute;
+    top:10px;
+    right:10px;
+    font-size:24px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.favorito.activo{
+    color:red;
 }

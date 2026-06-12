@@ -42,7 +42,9 @@
                     <circle cx="17" cy="19" r="1"></circle>
                 </svg>
             </div>
-
+            <div class="cart-container">
+    🛒 <span id="contador">0</span>
+</div>
         </nav>
     </header>
 
@@ -76,10 +78,11 @@
 
     <section class="products">
         <h2>Productos Destacados</h2>
-
-<div class="product-grid">
+        <input type="text" id="buscador" placeholder="Buscar perfume...">
+        <div class="product-grid">
 
     <div class="product-card">
+        <div class="favorito">♡</div>
         <img src="c:\Users\IK\Downloads\leMaleElixir.jpeg" alt="Le Male Elixir" class="product-image">
         <h3>Le Male Elixir</h3>
         <p>Jean Paul Gaultier</p>
@@ -88,14 +91,17 @@
     </div>
 
     <div class="product-card">
+        <div class="favorito">♡</div>
         <img src="c:\Users\IK\Downloads\goodGirlVery.jpeg" alt="Good Girl Very" class="product-image">
         <h3>Good Girl Very</h3>
         <p>Carolina Herrera</p>
+        <p>Bagues Unlock</p>
         <span>$41.600</span>
         <button>Agregar al carrito</button>
     </div>
 
     <div class="product-card">
+        <div class="favorito">♡</div>
         <img src="c:\Users\IK\Downloads\invictus.jpeg" alt="Invictus" class="product-image">
         <h3>Invictus</h3>
         <p>Paco Rabanne</p>
@@ -104,6 +110,7 @@
     </div>
 
     <div class="product-card">
+        <div class="favorito">♡</div>
         <img src="c:\Users\IK\Downloads\perfumeLaBomba.jpeg" alt="La Bomba" class="product-image">
         <h3>La Bomba</h3>
         <p>Carolina Herrera</p>
@@ -112,57 +119,6 @@
     </div>
 
 </div>
-
-</section>
-
-    </section>
-
-    <section class="benefits">
-
-    <div class="benefit">
-
-        <svg class="benefit-icon" viewBox="0 0 24 24">
-            <path d="M4 7L12 3L20 7L12 11L4 7Z"/>
-            <path d="M4 7V17L12 21V11"/>
-            <path d="M20 7V17L12 21"/>
-        </svg>
-
-        <p>Envíos a todo el país</p>
-
-    </div>
-
-    <div class="benefit">
-
-        <svg class="benefit-icon" viewBox="0 0 24 24">
-            <rect x="5" y="10" width="14" height="10" rx="2"/>
-            <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
-        </svg>
-
-        <p>Compra segura</p>
-
-    </div>
-
-    <div class="benefit">
-
-        <svg class="benefit-icon" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="8"/>
-            <path d="M9 12L11 14L15 10"/>
-        </svg>
-
-        <p>Productos originales</p>
-
-    </div>
-
-    <div class="benefit">
-
-        <svg class="benefit-icon" viewBox="0 0 24 24">
-            <rect x="3" y="6" width="14" height="10" rx="1"/>
-            <rect x="7" y="10" width="14" height="10" rx="1"/>
-        </svg>
-
-        <p>Múltiples medios de pago</p>
-
-    </div>
 
 </section>
 
@@ -193,11 +149,11 @@
         <p>© 2026 Unlock Fragancias</p>
 
         <div class="footer-links">
-            <a href="#">Sobre Nosotros</a>
-            <a href="#">Términos</a>
             <a href="#">Contacto</a>
         </div>
     </footer>
+
+    <script src="script.js"></script>
 
 </body>
 </html>
