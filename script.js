@@ -1,56 +1,15 @@
-// ==========================================
-// VARIABLES
-// ==========================================
-
 let carrito = [];
-
 let favoritos = [];
 
-
-// ==========================================
-// PRODUCTOS
-// ==========================================
-
-const productos =
-    Array.from(
-        document.querySelectorAll(".product-card")
-    );
-
-
-// ==========================================
-// CARRITO
-// ==========================================
-
-const botonesCarrito =
-    document.querySelectorAll(
-        ".product-card button"
-    );
-
-const contadorCarrito =
-    document.getElementById("contador");
-
-const abrirCarrito =
-    document.getElementById("abrirCarrito");
-
-const modalCarrito =
-    document.getElementById("modalCarrito");
-
-const cerrarCarrito =
-    document.getElementById("cerrarCarrito");
-
-const listaCarrito =
-    document.getElementById("listaCarrito");
-
-const totalCarrito =
-    document.getElementById("totalCarrito");
-
-const vaciarCarrito =
-    document.getElementById("vaciarCarrito");
-
-
-// ==========================================
-// AGREGAR AL CARRITO
-// ==========================================
+const productos = Array.from(document.querySelectorAll(".product-card"));
+const botonesCarrito = document.querySelectorAll(".product-card button");
+const contadorCarrito = document.getElementById("contador");
+const abrirCarrito = document.getElementById("abrirCarrito");
+const modalCarrito = document.getElementById("modalCarrito");
+const cerrarCarrito = document.getElementById("cerrarCarrito");
+const listaCarrito = document.getElementById("listaCarrito");
+const totalCarrito = document.getElementById("totalCarrito");
+const vaciarCarrito = document.getElementById("vaciarCarrito");
 
 botonesCarrito.forEach(boton => {
 
@@ -103,11 +62,6 @@ botonesCarrito.forEach(boton => {
     });
 
 });
-
-
-// ==========================================
-// ACTUALIZAR CARRITO
-// ==========================================
 
 function actualizarCarrito(){
 
@@ -212,8 +166,6 @@ function actualizarCarrito(){
         precioTotal.toLocaleString("es-AR");
 
 
-    // SUMAR
-
     document
         .querySelectorAll(".sumar")
         .forEach(boton => {
@@ -235,9 +187,6 @@ function actualizarCarrito(){
             );
 
         });
-
-
-    // RESTAR
 
     document
         .querySelectorAll(".restar")
@@ -276,9 +225,6 @@ function actualizarCarrito(){
 
         });
 
-
-    // ELIMINAR
-
     document
         .querySelectorAll(
             ".eliminar-producto"
@@ -308,11 +254,6 @@ function actualizarCarrito(){
 
 }
 
-
-// ==========================================
-// ABRIR CARRITO
-// ==========================================
-
 abrirCarrito.addEventListener(
     "click",
     () => {
@@ -326,11 +267,6 @@ abrirCarrito.addEventListener(
     }
 );
 
-
-// ==========================================
-// CERRAR CARRITO
-// ==========================================
-
 cerrarCarrito.addEventListener(
     "click",
     () => {
@@ -342,11 +278,6 @@ cerrarCarrito.addEventListener(
     }
 );
 
-
-// ==========================================
-// VACIAR CARRITO
-// ==========================================
-
 vaciarCarrito.addEventListener(
     "click",
     () => {
@@ -357,11 +288,6 @@ vaciarCarrito.addEventListener(
 
     }
 );
-
-
-// ==========================================
-// FAVORITOS
-// ==========================================
 
 const corazones =
     document.querySelectorAll(
@@ -392,11 +318,6 @@ const listaFavoritos =
     document.getElementById(
         "listaFavoritos"
     );
-
-
-// ==========================================
-// AGREGAR / QUITAR FAVORITO
-// ==========================================
 
 corazones.forEach(corazon => {
 
@@ -471,11 +392,6 @@ corazones.forEach(corazon => {
     );
 
 });
-
-
-// ==========================================
-// ACTUALIZAR FAVORITOS
-// ==========================================
 
 function actualizarFavoritos(){
 
@@ -611,11 +527,6 @@ function actualizarFavoritos(){
 
 }
 
-
-// ==========================================
-// ABRIR FAVORITOS
-// ==========================================
-
 abrirFavoritos.addEventListener(
     "click",
     () => {
@@ -629,11 +540,6 @@ abrirFavoritos.addEventListener(
     }
 );
 
-
-// ==========================================
-// CERRAR FAVORITOS
-// ==========================================
-
 cerrarFavoritos.addEventListener(
     "click",
     () => {
@@ -644,11 +550,6 @@ cerrarFavoritos.addEventListener(
 
     }
 );
-
-
-// ==========================================
-// BUSCADOR
-// ==========================================
 
 const buscador =
     document.getElementById(
@@ -740,11 +641,6 @@ buscador.addEventListener(
     }
 );
 
-
-// ==========================================
-// CATEGORÍAS
-// ==========================================
-
 const botonesCategorias =
     document.querySelectorAll(
         ".categoria"
@@ -776,9 +672,6 @@ botonesCategorias.forEach(
 
                 const filtro =
                     boton.dataset.filtro;
-
-
-                // MENOR A MAYOR
 
                 if(
                     filtro === "menor-mayor"
@@ -820,9 +713,6 @@ botonesCategorias.forEach(
 
                     return;
                 }
-
-
-                // MAYOR A MENOR
 
                 if(
                     filtro === "mayor-menor"
@@ -921,11 +811,6 @@ botonesCategorias.forEach(
     }
 );
 
-
-// ==========================================
-// IMÁGENES DE PERFUMES
-// ==========================================
-
 const imagenesPerfumes =
     document.querySelectorAll(
         ".product-image"
@@ -948,11 +833,6 @@ imagenesPerfumes.forEach(
 
     }
 );
-
-
-// ==========================================
-// MENÚ CONTACTO
-// ==========================================
 
 const botonContacto =
     document.getElementById(
@@ -977,9 +857,6 @@ botonContacto.addEventListener(
 
     }
 );
-
-
-// CERRAR CONTACTO AL HACER CLIC AFUERA
 
 document.addEventListener(
     "click",
