@@ -1,8 +1,6 @@
 let carrito = [];
 let favoritos = [];
 
-const productos = Array.from(document.querySelectorAll(".product-card"));
-const botonesCarrito = document.querySelectorAll(".product-card button");
 const contadorCarrito = document.getElementById("contador");
 const abrirCarrito = document.getElementById("abrirCarrito");
 const modalCarrito = document.getElementById("modalCarrito");
@@ -11,57 +9,178 @@ const listaCarrito = document.getElementById("listaCarrito");
 const totalCarrito = document.getElementById("totalCarrito");
 const vaciarCarrito = document.getElementById("vaciarCarrito");
 
-botonesCarrito.forEach(boton => {
+const productGrid = document.getElementById("productGrid");
 
-    boton.addEventListener("click", () => {
+const catalogo = [
+    {
+        id: 1,
+        nombre: "Le Male Elixir",
+        marca: "Jean Paul Gaultier",
+        precio: 50000,
+        genero: "hombre",
+        tipo: "disenador",
+        imagen: "assets/img/leMaleElixir.jpeg"
+    },
+    {
+        id: 2,
+        nombre: "Good Girl Very",
+        marca: "Carolina Herrera",
+        precio: 41600,
+        genero: "mujer",
+        tipo: "disenador",
+        imagen: "assets/img/goodGirlVery.jpeg"
+    },
+    {
+    id: 3,
+    nombre: "Invictus",
+    marca: "Paco Rabanne",
+    precio: 21000,
+    genero: "hombre",
+    tipo: "disenador",
+    imagen: "assets/img/invictus.jpeg"
+},
+{
+    id: 4,
+    nombre: "La Bomba",
+    marca: "Carolina Herrera",
+    precio: 39000,
+    genero: "mujer",
+    tipo: "disenador",
+    imagen: "assets/img/perfumeLaBomba.jpeg"
+}
+];
 
-        const producto =
-            boton.closest(".product-card");
 
-        const nombre =
-            producto.dataset.nombre;
+function renderProductos(lista){
 
-        const precio =
-            Number(producto.dataset.precio);
+    productGrid.innerHTML="";
+    
+    lista.forEach(producto=>{
+        productGrid.innerHTML += `
+        <div class="product-card"
+            data-id="${producto.id}"
+            data-nombre="${producto.nombre}"
+            data-marca="${producto.marca}"
+            data-precio="${producto.precio}"
+            data-genero="${producto.genero}"
+            data-tipo="${producto.tipo}">
 
-        const imagen =
-            producto.querySelector(
-                ".product-image"
-            ).src;
+            <div class="favorito">♡</div>
 
+            <img
+                src="${producto.imagen}"
+                alt="${producto.nombre}"
+                class="product-image">
 
-        const productoExistente =
-            carrito.find(
-                item => item.nombre === nombre
+            <h3>${producto.nombre}</h3>
+
+            <p>${producto.marca}</p>
+
+            <span>$${producto.precio.toLocaleString("es-AR")}</span>
+
+            <button>Agregar al carrito</button>
+
+        </div>
+
+        `;
+    });
+
+}
+
+renderProductos(catalogo); //renderiza la funcion de cartas.
+
+const productos = document.querySelectorAll(".product-card"); //importante, no tocar.
+
+function configurarEventosProductos() {
+
+    const botonesCarrito = document.querySelectorAll(".product-card button");
+    const corazones = document.querySelectorAll(".favorito");
+    const imagenesPerfumes = document.querySelectorAll(".product-image");
+
+    // AGREGAR AL CARRITO
+
+    botonesCarrito.forEach(boton => {
+
+        boton.addEventListener("click", () => {
+
+            const producto = boton.closest(".product-card");
+
+            const id = Number(producto.dataset.id);
+            const nombre = producto.dataset.nombre;
+            const precio = Number(producto.dataset.precio);
+            const imagen = producto.querySelector(".product-image").src;
+            const productoExistente = carrito.find(item => item.id === id);
+
+            if (productoExistente) {
+                productoExistente.cantidad++;
+
+            } else {
+                carrito.push({
+                    id,
+                    nombre,
+                    precio,
+                    imagen,
+                    cantidad: 1
+                });
+
+            }
+
+            actualizarCarrito();
+        });
+    });
+
+    // FAVORITOS
+
+  corazones.forEach(corazon => {
+
+    corazon.addEventListener("click", () => {
+
+        const producto = corazon.closest(".product-card");
+        const id = Number(producto.dataset.id);
+        const nombre = producto.dataset.nombre;
+        const precio = Number(producto.dataset.precio);
+        const imagen = producto.querySelector(".product-image").src;
+
+        const existe = favoritos.find(item => item.id === id);
+
+        if (existe) {
+
+            favoritos = favoritos.filter(
+                item => item.id !== id
             );
 
-
-        if (productoExistente) {
-
-            productoExistente.cantidad++;
+            corazon.textContent = "♡";
+            corazon.classList.remove("activo");
 
         } else {
 
-            carrito.push({
-
-                nombre: nombre,
-
-                precio: precio,
-
-                imagen: imagen,
-
-                cantidad: 1
-
+            favoritos.push({
+                id,
+                nombre,
+                precio,
+                imagen
             });
 
+            corazon.textContent = "♥";
+            corazon.classList.add("activo");
         }
 
-
-        actualizarCarrito();
-
+        actualizarFavoritos();
     });
-
 });
+
+    // IMAGEN DEL PERFUME
+
+    imagenesPerfumes.forEach(imagen => {
+
+        imagen.addEventListener("click", () => {
+            alert("Acá después vamos a abrir la ficha completa del perfume." );
+        });
+    });
+}
+
+configurarEventosProductos();
+
 
 function actualizarCarrito(){
 
@@ -289,11 +408,6 @@ vaciarCarrito.addEventListener(
     }
 );
 
-const corazones =
-    document.querySelectorAll(
-        ".favorito"
-    );
-
 const contadorFavoritos =
     document.getElementById(
         "contadorFavoritos"
@@ -319,286 +433,88 @@ const listaFavoritos =
         "listaFavoritos"
     );
 
-corazones.forEach(corazon => {
 
-    corazon.addEventListener(
-        "click",
-        () => {
+function actualizarFavoritos() {
 
-            const producto =
-                corazon.closest(
-                    ".product-card"
-                );
-
-            const nombre =
-                producto.dataset.nombre;
-
-            const precio =
-                Number(
-                    producto.dataset.precio
-                );
-
-            const imagen =
-                producto.querySelector(
-                    ".product-image"
-                ).src;
-
-
-            const existe =
-                favoritos.find(
-                    item =>
-                        item.nombre === nombre
-                );
-
-
-            if(existe){
-
-                favoritos =
-                    favoritos.filter(
-                        item =>
-                            item.nombre !== nombre
-                    );
-
-                corazon.textContent = "♡";
-
-                corazon.classList.remove(
-                    "activo"
-                );
-
-            }else{
-
-                favoritos.push({
-
-                    nombre: nombre,
-
-                    precio: precio,
-
-                    imagen: imagen
-
-                });
-
-                corazon.textContent = "♥";
-
-                corazon.classList.add(
-                    "activo"
-                );
-
-            }
-
-
-            actualizarFavoritos();
-
-        }
-    );
-
-});
-
-function actualizarFavoritos(){
-
-    contadorFavoritos.textContent =
-        favoritos.length;
-
-
+    contadorFavoritos.textContent = favoritos.length;
     listaFavoritos.innerHTML = "";
 
+    if (favoritos.length === 0) {
 
-    if(favoritos.length === 0){
-
-        listaFavoritos.innerHTML = `
-            <p class="carrito-vacio">
-                No tenés perfumes favoritos.
-            </p>
-        `;
+        listaFavoritos.innerHTML = ` <p class="carrito-vacio"> No tenés perfumes favoritos.</p>`;
 
         return;
-
     }
 
+    favoritos.forEach((producto, index) => {
 
-    favoritos.forEach(
-        (producto, index) => {
+        const elemento = document.createElement("div");
+        elemento.classList.add("producto-favorito");
 
-            const elemento =
-                document.createElement(
-                    "div"
-                );
+        elemento.innerHTML = `
 
-            elemento.classList.add(
-                "producto-favorito"
-            );
+            <img src="${producto.imagen}" alt="${producto.nombre}">
 
+            <div>
+                <h3>${producto.nombre}</h3>
+                <p>$${producto.precio.toLocaleString("es-AR")}</p>
+            </div>
 
-            elemento.innerHTML = `
+            <button class="eliminar-favorito" data-index="${index}"> × </button>
+        `;
 
-                <img
-                    src="${producto.imagen}"
-                    alt="${producto.nombre}"
-                >
+        listaFavoritos.appendChild(elemento);
+    });
 
-                <div>
+    document.querySelectorAll(".eliminar-favorito").forEach(boton => {
+        
+        boton.addEventListener("click", () => {
+                const index =Number(boton.dataset.index);
+                const id = favoritos[index].id;
+                favoritos.splice(index, 1);
 
-                    <h3>
-                        ${producto.nombre}
-                    </h3>
+                document.querySelectorAll(".favorito").forEach(corazon => {
 
-                    <p>
-                        $${producto.precio.toLocaleString("es-AR")}
-                    </p>
+                        const producto =corazon.closest(".product-card");
 
-                </div>
-
-                <button
-                    class="eliminar-favorito"
-                    data-index="${index}"
-                >
-                    ×
-                </button>
-
-            `;
-
-
-            listaFavoritos.appendChild(
-                elemento
-            );
-
-        }
-    );
-
-
-    document
-        .querySelectorAll(
-            ".eliminar-favorito"
-        )
-        .forEach(boton => {
-
-            boton.addEventListener(
-                "click",
-                () => {
-
-                    const index =
-                        Number(
-                            boton.dataset.index
-                        );
-
-                    const nombre =
-                        favoritos[index]
-                            .nombre;
-
-
-                    favoritos.splice(
-                        index,
-                        1
-                    );
-
-
-                    corazones.forEach(
-                        corazon => {
-
-                            const producto =
-                                corazon.closest(
-                                    ".product-card"
-                                );
-
-
-                            if(
-                                producto.dataset.nombre ===
-                                nombre
-                            ){
-
-                                corazon.textContent =
-                                    "♡";
-
-                                corazon.classList.remove(
-                                    "activo"
-                                );
-
-                            }
-
+                        if (Number(producto.dataset.id) === id) {
+                            corazon.textContent = "♡";
+                            corazon.classList.remove("activo");
                         }
-                    );
+                    });
 
-
-                    actualizarFavoritos();
-
-                }
-            );
-
+                actualizarFavoritos();
+            });
         });
-
 }
 
-abrirFavoritos.addEventListener(
-    "click",
-    () => {
+abrirFavoritos.addEventListener("click",() => {
+    modalFavoritos.classList.add("activo"); actualizarFavoritos();
+});
 
-        modalFavoritos.classList.add(
-            "activo"
-        );
+cerrarFavoritos.addEventListener("click",() => { 
+    modalFavoritos.classList.remove("activo");
+});
 
-        actualizarFavoritos();
+const buscador = document.getElementById("buscador");
+const searchIcon = document.querySelector(".search-icon");
+const searchContainer = document.querySelector(".search-container");
 
-    }
-);
+searchIcon.addEventListener("click",() => {
+        searchContainer.classList.toggle("active");
 
-cerrarFavoritos.addEventListener(
-    "click",
-    () => {
-
-        modalFavoritos.classList.remove(
-            "activo"
-        );
-
-    }
-);
-
-const buscador =
-    document.getElementById(
-        "buscador"
-    );
-
-const searchIcon =
-    document.querySelector(
-        ".search-icon"
-    );
-
-const searchContainer =
-    document.querySelector(
-        ".search-container"
-    );
-
-
-searchIcon.addEventListener(
-    "click",
-    () => {
-
-        searchContainer.classList.toggle(
-            "active"
-        );
-
-
-        if(
-            searchContainer.classList.contains(
-                "active"
-            )
-        ){
+        if(searchContainer.classList.contains("active")){
 
             buscador.focus();
 
         }else{
-
             buscador.value = "";
 
-            productos.forEach(
-                producto => {
-
-                    producto.style.display =
-                        "block";
-
+            productos.forEach(producto => {
+                    producto.style.display = "block";
                 }
             );
-
         }
-
     }
 );
 
@@ -811,28 +727,6 @@ botonesCategorias.forEach(
     }
 );
 
-const imagenesPerfumes =
-    document.querySelectorAll(
-        ".product-image"
-    );
-
-
-imagenesPerfumes.forEach(
-    imagen => {
-
-        imagen.addEventListener(
-            "click",
-            () => {
-
-                alert(
-                    "Acá después vamos a abrir la ficha completa del perfume."
-                );
-
-            }
-        );
-
-    }
-);
 
 const botonContacto =
     document.getElementById(
@@ -845,34 +739,19 @@ const contactoOpciones =
     );
 
 
-botonContacto.addEventListener(
-    "click",
-    (e) => {
-
-        e.preventDefault();
-
-        contactoOpciones.classList.toggle(
-            "activo"
-        );
-
+botonContacto.addEventListener("click", (e) => {
+    
+    e.preventDefault()
+    contactoOpciones.classList.toggle("activo");
     }
 );
 
-document.addEventListener(
-    "click",
-    (e) => {
+document.addEventListener("click",(e) => {
 
-        if(
-            !e.target.closest(
-                ".contacto-menu"
-            )
-        ){
+        if(!e.target.closest(".contacto-menu")){
 
-            contactoOpciones.classList.remove(
-                "activo"
-            );
+            contactoOpciones.classList.remove("activo");
 
         }
-
     }
 );
