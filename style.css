@@ -95,47 +95,56 @@ body{
 
 .contacto-opciones{
     position:absolute;
-
-    top:30px;
+    top:40px;
     right:0;
 
-    min-width:170px;
+    min-width:180px;
 
     background:white;
+    border-radius:12px;
 
-    padding:8px 0;
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
 
-    border-radius:8px;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-10px);
 
-    box-shadow:0 5px 20px rgba(0,0,0,.15);
-
-    display:none;
+    transition:.25s ease;
 
     z-index:1000;
 }
 
 .contacto-opciones.activo{
-    display:block;
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
 }
 
 .contacto-opciones a{
-    display:block;
+    display:flex;
+    align-items:center;
+    gap:12px;
 
-    padding:11px 16px;
+    padding:12px 16px;
 
-    color:#111;
-
+    color:#333;
     text-decoration:none;
-
     font-size:14px;
+    font-weight:500;
 
-    white-space:nowrap;
+    transition:background .25s, color .25s;
 }
 
 .contacto-opciones a:hover{
-    background:#f3eeee;
-
+    background:#F6F1EC;
     color:#7A4C3B;
+}
+
+.contacto-img{
+    width:24px;
+    height:24px;
+    object-fit:contain;
+    flex-shrink:0;
 }
 
 .icons{
