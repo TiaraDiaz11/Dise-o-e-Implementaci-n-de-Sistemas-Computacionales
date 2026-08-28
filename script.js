@@ -50,13 +50,22 @@ const catalogo = [
 }
 ];
 
+async function cargarProductos() {
+
+    // Por ahora simulamos la respuesta del backend
+    const productosAPI = catalogo;
+
+    renderProductos(productosAPI);
+    configurarEventosProductos();
+}
 
 function renderProductos(lista){
 
-    productGrid.innerHTML="";
-    
-    lista.forEach(producto=>{
-        productGrid.innerHTML += `
+    let html = "";
+
+    lista.forEach(producto => {
+
+        html += `
         <div class="product-card"
             data-id="${producto.id}"
             data-nombre="${producto.nombre}"
@@ -67,29 +76,68 @@ function renderProductos(lista){
 
             <div class="favorito">♡</div>
 
-            <img
-                src="${producto.imagen}"
-                alt="${producto.nombre}"
-                class="product-image">
+            <img src="${producto.imagen}" alt="${producto.nombre}" class="product-image">
 
             <h3>${producto.nombre}</h3>
-
             <p>${producto.marca}</p>
-
             <span>$${producto.precio.toLocaleString("es-AR")}</span>
-
             <button>Agregar al carrito</button>
-
         </div>
-
         `;
     });
 
+    productGrid.innerHTML = html;
 }
 
-renderProductos(catalogo); //renderiza la funcion de cartas.
+function aplicarFiltros() {
 
-const productos = document.querySelectorAll(".product-card"); //importante, no tocar.
+    const texto = buscador.value.toLowerCase().trim();
+    const botonActivo = document.querySelector(".categoria.activo");
+    const filtro = botonActivo ? botonActivo.dataset.filtro: "todos";
+
+    let resultado = [...catalogo];
+
+    // Búsqueda
+    if (texto) {
+
+        resultado = resultado.filter(producto => {
+
+            return (
+                producto.nombre.toLowerCase().includes(texto) ||
+                producto.marca.toLowerCase().includes(texto)
+            );
+        });
+    }
+
+    // Categorías
+
+    if (filtro !== "todos") {
+
+        if (filtro === "menor-mayor") {
+
+            resultado.sort((a,b) => a.precio - b.precio);
+
+        } else if (filtro === "mayor-menor") {
+
+            resultado.sort((a,b) => b.precio - a.precio);
+
+        } else {
+
+            resultado = resultado.filter(producto => {
+
+                return (
+                    producto.genero === filtro || producto.tipo === filtro
+                );
+            });
+        }
+    }
+
+    renderProductos(resultado);
+    configurarEventosProductos();
+
+}
+
+cargarProductos();
 
 function configurarEventosProductos() {
 
@@ -178,9 +226,6 @@ function configurarEventosProductos() {
         });
     });
 }
-
-configurarEventosProductos();
-
 
 function actualizarCarrito(){
 
@@ -509,234 +554,29 @@ searchIcon.addEventListener("click",() => {
 
         }else{
             buscador.value = "";
-
-            productos.forEach(producto => {
-                    producto.style.display = "block";
-                }
-            );
+            aplicarFiltros();
         }
     }
 );
 
+buscador.addEventListener("input", aplicarFiltros);
 
-buscador.addEventListener(
-    "input",
-    () => {
 
-        const texto =
-            buscador.value
-                .toLowerCase()
-                .trim();
+const botonesCategorias = document.querySelectorAll(".categoria");
 
+botonesCategorias.forEach(boton => {
+    boton.addEventListener("click", () => {
 
-        productos.forEach(
-            producto => {
+        botonesCategorias.forEach(b => b.classList.remove("activo"));
+        boton.classList.add("activo");
 
-                const contenido =
-                    producto.textContent
-                        .toLowerCase();
+        aplicarFiltros();
+    });
+});
 
 
-                if(
-                    contenido.includes(texto)
-                ){
-
-                    producto.style.display =
-                        "block";
-
-                }else{
-
-                    producto.style.display =
-                        "none";
-
-                }
-
-            }
-        );
-
-    }
-);
-
-const botonesCategorias =
-    document.querySelectorAll(
-        ".categoria"
-    );
-
-
-botonesCategorias.forEach(
-    boton => {
-
-        boton.addEventListener(
-            "click",
-            () => {
-
-                botonesCategorias.forEach(
-                    b => {
-
-                        b.classList.remove(
-                            "activo"
-                        );
-
-                    }
-                );
-
-
-                boton.classList.add(
-                    "activo"
-                );
-
-
-                const filtro =
-                    boton.dataset.filtro;
-
-                if(
-                    filtro === "menor-mayor"
-                ){
-
-                    const ordenados =
-                        [...productos].sort(
-                            (a,b) => {
-
-                                return (
-                                    Number(
-                                        a.dataset.precio
-                                    ) -
-                                    Number(
-                                        b.dataset.precio
-                                    )
-                                );
-
-                            }
-                        );
-
-
-                    ordenados.forEach(
-                        producto => {
-
-                            producto.style.display =
-                                "block";
-
-                            document
-                                .querySelector(
-                                    ".product-grid"
-                                )
-                                .appendChild(
-                                    producto
-                                );
-
-                        }
-                    );
-
-                    return;
-                }
-
-                if(
-                    filtro === "mayor-menor"
-                ){
-
-                    const ordenados =
-                        [...productos].sort(
-                            (a,b) => {
-
-                                return (
-                                    Number(
-                                        b.dataset.precio
-                                    ) -
-                                    Number(
-                                        a.dataset.precio
-                                    )
-                                );
-
-                            }
-                        );
-
-
-                    ordenados.forEach(
-                        producto => {
-
-                            producto.style.display =
-                                "block";
-
-                            document
-                                .querySelector(
-                                    ".product-grid"
-                                )
-                                .appendChild(
-                                    producto
-                                );
-
-                        }
-                    );
-
-                    return;
-                }
-
-
-                // FILTROS
-
-                productos.forEach(
-                    producto => {
-
-                        const genero =
-                            producto.dataset.genero;
-
-                        const tipo =
-                            producto.dataset.tipo;
-
-
-                        if(
-                            filtro === "todos"
-                        ){
-
-                            producto.style.display =
-                                "block";
-
-                        }
-
-                        else if(
-                            filtro === genero
-                        ){
-
-                            producto.style.display =
-                                "block";
-
-                        }
-
-                        else if(
-                            filtro === tipo
-                        ){
-
-                            producto.style.display =
-                                "block";
-
-                        }
-
-                        else{
-
-                            producto.style.display =
-                                "none";
-
-                        }
-
-                    }
-                );
-
-            }
-        );
-
-    }
-);
-
-
-const botonContacto =
-    document.getElementById(
-        "botonContacto"
-    );
-
-const contactoOpciones =
-    document.getElementById(
-        "contactoOpciones"
-    );
+const botonContacto = document.getElementById("botonContacto");
+const contactoOpciones = document.getElementById("contactoOpciones");
 
 
 botonContacto.addEventListener("click", (e) => {
