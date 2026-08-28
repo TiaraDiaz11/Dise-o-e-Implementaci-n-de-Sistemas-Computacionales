@@ -28,11 +28,11 @@ const catalogo = [
         precio: 41600,
         genero: "mujer",
         tipo: "disenador",
+
         imagen: "imagenes/goodGirlVery.jpeg"
+
+        imagen: "assets/img/goodGirlVery.jpeg"
     },
-    {
-    id: 3,
-    nombre: "Invictus",
     marca: "Paco Rabanne",
     precio: 21000,
     genero: "hombre",
@@ -50,6 +50,7 @@ const catalogo = [
 }
 ];
 
+    let html = "";
 
 function renderProductos(lista){
 
@@ -148,6 +149,8 @@ function configurarEventosProductos() {
             favoritos = favoritos.filter(
                 item => item.id !== id
             );
+        });
+    }
 
             corazon.textContent = "♡";
             corazon.classList.remove("activo");
@@ -163,7 +166,30 @@ function configurarEventosProductos() {
 
             corazon.textContent = "♥";
             corazon.classList.add("activo");
+
+    // Categorías
+
+    if (filtro !== "todos") {
+
+        if (filtro === "menor-mayor") {
+
+            resultado.sort((a,b) => a.precio - b.precio);
+
+        } else if (filtro === "mayor-menor") {
+
+            resultado.sort((a,b) => b.precio - a.precio);
+
+        } else {
+
+            resultado = resultado.filter(producto => {
+
+                return (
+                    producto.genero === filtro || producto.tipo === filtro
+                );
+            });
+
         }
+    }
 
         actualizarFavoritos();
     });
@@ -509,6 +535,10 @@ searchIcon.addEventListener("click",() => {
 
         }else{
             buscador.value = "";
+            aplicarFiltros();
+        }
+    }
+);
 
             productos.forEach(producto => {
                     producto.style.display = "block";

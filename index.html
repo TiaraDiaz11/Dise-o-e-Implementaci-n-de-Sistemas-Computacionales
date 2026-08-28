@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -21,6 +24,7 @@
                 <img
                     src="imagenes/logoUnlockFragancias.jpg"
                     alt="Unlock Fragancias"
+                    class="logo-img">
                     class="logo-img">
 
                 <div class="brand-text">
@@ -37,10 +41,13 @@
                 <li>
                     <a href="#">Inicio</a></li><li>
                     <a href="#productos">Perfumes</a>
+                    <a href="#">Inicio</a></li><li>
+                    <a href="#productos">Perfumes</a>
                 </li>
 
                 <li class="contacto-menu">
 
+                    <a href="#" id="botonContacto">Contacto</a>
                     <a href="#" id="botonContacto">Contacto</a>
 
                     <div class="contacto-opciones" id="contactoOpciones">
@@ -52,7 +59,6 @@
                         <a href="https://www.instagram.com/unlockfragancias__/" target="_blank" rel="noopener noreferrer">
                             📸 Instagram
                         </a>
-
                     </div>
 
                 </li>
@@ -67,10 +73,16 @@
                     <svg class="icon-svg search-icon" viewBox="0 0 24 24" fill="none">
                         <circle cx="11" cy="11" r="7"></circle>
                         <line x1="20" y1="20" x2="16.65" y2="16.65"></line>
+                    <input type="text" id="buscador" placeholder="Buscar perfume...">
+                    <svg class="icon-svg search-icon" viewBox="0 0 24 24" fill="none">
+                        <circle cx="11" cy="11" r="7"></circle>
+                        <line x1="20" y1="20" x2="16.65" y2="16.65"></line>
                     </svg>
 
                 </div>
 
+                <div class="icon-container" id="abrirFavoritos" title="Favoritos">
+                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none">
                 <div class="icon-container" id="abrirFavoritos" title="Favoritos">
                     <svg class="icon-svg" viewBox="0 0 24 24" fill="none">
                         <path d="M12 21s-7-4.35-9.5-8.5C0 8 2.5 3 7 3c2.3 0 4 1.2 5 3 1-1.8 2.7-3 5-3 4.5 0 7 5 4.5 9.5C19 16.65 12 21 12 21z">
@@ -78,6 +90,7 @@
 
                     </svg>
 
+                    <span id="contadorFavoritos">0</span>
                     <span id="contadorFavoritos">0</span>
 
                 </div>
@@ -88,7 +101,14 @@
                         <path d="M3 4h2l2 10h10l2-7H7"></path>
                         <circle cx="9" cy="19"r="1"></circle>
                         <circle cx="17" cy="19"r="1"></circle>
+                <div class="icon-container" id="abrirCarrito" title="Carrito">
+                    
+                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none">
+                        <path d="M3 4h2l2 10h10l2-7H7"></path>
+                        <circle cx="9" cy="19"r="1"></circle>
+                        <circle cx="17" cy="19"r="1"></circle>
                     </svg>
+                    <span id="contador">0</span>
                     <span id="contador">0</span>
 
                 </div>
@@ -100,7 +120,9 @@
     </header>
 
     <section class="products" id="productos">
+    <section class="products" id="productos">
 
+        <h2>Fragancias</h2>
         <h2>Fragancias</h2>
 
         <div class="categorias">
@@ -112,8 +134,17 @@
             <button class="categoria" data-filtro="disenador">Diseñador</button>
             <button class="categoria" data-filtro="menor-mayor">Menor a mayor</button>
             <button class="categoria" data-filtro="mayor-menor">Mayor a menor</button>
+            <button class="categoria activo" data-filtro="todos">Todos</button>
+            <button class="categoria" data-filtro="hombre">Hombre</button>
+            <button class="categoria" data-filtro="mujer"> Mujer </button>
+            <button class="categoria" data-filtro="unisex">Unisex</button>
+            <button class="categoria" data-filtro="arabe"> Árabes</button>
+            <button class="categoria" data-filtro="disenador">Diseñador</button>
+            <button class="categoria" data-filtro="menor-mayor">Menor a mayor</button>
+            <button class="categoria" data-filtro="mayor-menor">Mayor a menor</button>
         </div>
 
+            <div class="product-grid" id="productGrid"></div>
             <div class="product-grid" id="productGrid"></div>
 
     </section>
@@ -121,19 +152,24 @@
     <section class="reviews">
 
         <h2>Opiniones de Clientes</h2>
+        <h2>Opiniones de Clientes</h2>
 
         <div class="review-grid">
 
             <div class="review-card">
 
                 <p> "Mucha variedad de perfumes."</p>
+                <p> "Mucha variedad de perfumes."</p>
 
+                <span>⭐⭐⭐⭐⭐</span>
                 <span>⭐⭐⭐⭐⭐</span>
 
             </div>
 
             <div class="review-card">
 
+                <p>"Excelente relación precio-calidad."</p>
+                <span>⭐⭐⭐⭐⭐</span>
                 <p>"Excelente relación precio-calidad."</p>
                 <span>⭐⭐⭐⭐⭐</span>
 
