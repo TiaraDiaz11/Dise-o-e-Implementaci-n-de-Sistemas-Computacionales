@@ -263,25 +263,35 @@ h2{
 
 .product-grid{
     display:grid;
-
     grid-template-columns:repeat(4,1fr);
-
     gap:25px;
+}
+
+@media (max-width:1200px){
+    .product-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
+
+@media (max-width:768px){
+    .product-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media (max-width:500px){
+    .product-grid{
+        grid-template-columns:1fr;
+    }
 }
 
 .product-card{
     border:1px solid #e5e5e5;
-
     padding:20px;
-
     text-align:center;
-
     background:white;
-
     border-radius:10px;
-
     transition:.3s;
-
     position:relative;
 }
 
