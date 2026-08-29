@@ -1,5 +1,5 @@
-let carrito = [];
-let favoritos = [];
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
 
 const contadorCarrito = document.getElementById("contador");
 const abrirCarrito = document.getElementById("abrirCarrito");
@@ -57,6 +57,11 @@ async function cargarProductos() {
 
     renderProductos(productosAPI);
     configurarEventosProductos();
+}
+
+function guardarDatosLocal() {
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    localStorage.setItem("favoritos", JSON.stringify(favoritos));
 }
 
 function renderProductos(lista){
@@ -173,6 +178,7 @@ function configurarEventosProductos() {
 
             }
 
+            guardarDatosLocal();
             actualizarCarrito();
         });
     });
@@ -382,6 +388,7 @@ function actualizarCarrito(){
                     }
 
 
+                    guardarDatosLocal();
                     actualizarCarrito();
 
                 }
@@ -409,6 +416,7 @@ function actualizarCarrito(){
                         1
                     );
 
+                    guardarDatosLocal();
                     actualizarCarrito();
 
                 }
@@ -445,11 +453,9 @@ cerrarCarrito.addEventListener(
 vaciarCarrito.addEventListener(
     "click",
     () => {
-
         carrito = [];
-
+        guardarDatosLocal();
         actualizarCarrito();
-
     }
 );
 
