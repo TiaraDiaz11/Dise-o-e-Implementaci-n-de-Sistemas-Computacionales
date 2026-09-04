@@ -76,6 +76,8 @@ body{
 
 .contacto-menu{
     position:relative;
+    height:auto;
+    width:auto;
 }
 
 .contacto-opciones{
@@ -102,7 +104,7 @@ body{
 .contacto-opciones a{
     display:flex;
     align-items:center;
-    gap:12px;
+    gap:10px;
     padding:12px 16px;
     color:#333;
     text-decoration:none;
@@ -116,7 +118,7 @@ body{
     color:#7A4C3B;
 }
 
-.contacto-img{
+.contacto-opciones img{
     width:24px;
     height:24px;
     object-fit:contain;
@@ -214,24 +216,6 @@ h2{
     display:grid;
     grid-template-columns:repeat(4,1fr);
     gap:25px;
-}
-
-@media (max-width:1200px){
-    .product-grid{
-        grid-template-columns:repeat(3,1fr);
-    }
-}
-
-@media (max-width:768px){
-    .product-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-}
-
-@media (max-width:500px){
-    .product-grid{
-        grid-template-columns:1fr;
-    }
 }
 
 .product-card{
@@ -384,6 +368,7 @@ h2{
         opacity:0;
         transform:translateY(15px) scale(.98);
     }
+
     to{
         opacity:1;
         transform:translateY(0) scale(1);
@@ -458,7 +443,8 @@ h2{
     color:white;
 }
 
-.eliminar-producto, .eliminar-favorito{
+.eliminar-producto,
+.eliminar-favorito{
     width:36px;
     height:36px;
     border:none;
@@ -470,6 +456,7 @@ h2{
     transition:.25s;
 }
 
+.eliminar-producto:hover,
 .eliminar-favorito:hover{
     background:#F6F1EC;
     color:#7A4C3B;
@@ -560,7 +547,16 @@ footer{
     text-align:center;
 }
 
-@media(max-width:900px){
+@media (max-width:1200px){
+
+    .product-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+}
+
+@media (max-width:900px){
+
     .navbar{
         flex-direction:column;
         gap:20px;
@@ -578,7 +574,7 @@ footer{
     }
 
     .product-grid{
-        grid-template-columns:1fr;
+        grid-template-columns:repeat(2,1fr);
     }
 
     .review-grid{
@@ -588,6 +584,56 @@ footer{
     .contacto-opciones{
         right:50%;
         transform:translateX(50%);
+    }
+
+    .contacto-opciones.activo{
+        transform:translateX(50%) translateY(0);
+    }
+
+}
+
+@media (max-width:768px){
+
+    .brand-text h1{
+        font-size:2.2rem;
+        letter-spacing:5px;
+    }
+
+    .brand-text span{
+        font-size:.55rem;
+        letter-spacing:9px;
+    }
+
+    section{
+        padding:60px 6%;
+    }
+
+}
+
+@media (max-width:500px){
+
+    .product-grid{
+        grid-template-columns:1fr;
+    }
+
+    .nav-links{
+        gap:15px;
+    }
+
+    .nav-links a{
+        font-size:.85rem;
+    }
+
+    .icons{
+        gap:18px;
+    }
+
+    .search-container.active input{
+        width:160px;
+    }
+
+    .product-image{
+        height:280px;
     }
 
 }
