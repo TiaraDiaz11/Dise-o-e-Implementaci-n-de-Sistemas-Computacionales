@@ -8,8 +8,23 @@ const cerrarCarrito = document.getElementById("cerrarCarrito");
 const listaCarrito = document.getElementById("listaCarrito");
 const totalCarrito = document.getElementById("totalCarrito");
 const vaciarCarrito = document.getElementById("vaciarCarrito");
-
 const productGrid = document.getElementById("productGrid");
+const contadorFavoritos = document.getElementById("contadorFavoritos");
+const abrirFavoritos = document.getElementById("abrirFavoritos");
+const modalFavoritos = document.getElementById("modalFavoritos");
+const cerrarFavoritos = document.getElementById("cerrarFavoritos");
+const listaFavoritos = document.getElementById("listaFavoritos");
+const buscador = document.getElementById("buscador");
+const searchIcon = document.querySelector(".search-icon");
+const searchContainer = document.querySelector(".search-container");
+const botonesCategorias = document.querySelectorAll(".categoria");
+const botonContacto = document.getElementById("botonContacto");
+const contactoOpciones = document.getElementById("contactoOpciones");
+
+
+// ==============================
+// CATÁLOGO
+// ==============================
 
 const catalogo = [
     {
@@ -21,6 +36,7 @@ const catalogo = [
         tipo: "disenador",
         imagen: "imagenes/leMaleElixir.jpeg"
     },
+
     {
         id: 2,
         nombre: "Good Girl Very",
@@ -28,80 +44,119 @@ const catalogo = [
         precio: 41600,
         genero: "mujer",
         tipo: "disenador",
-
         imagen: "imagenes/goodGirlVery.jpeg"
-
-        imagen: "assets/img/goodGirlVery.jpeg"
     },
-    marca: "Paco Rabanne",
-    precio: 21000,
-    genero: "hombre",
-    tipo: "disenador",
-    imagen: "imagenes/invictus.jpeg"
-},
-{
-    id: 4,
-    nombre: "La Bomba",
-    marca: "Carolina Herrera",
-    precio: 39000,
-    genero: "mujer",
-    tipo: "disenador",
-    imagen: "imagenes/laBomba.jpeg"
-}
+
+    {
+        id: 3,
+        nombre: "Invictus",
+        marca: "Paco Rabanne",
+        precio: 21000,
+        genero: "hombre",
+        tipo: "disenador",
+        imagen: "imagenes/invictus.jpeg"
+    },
+
+    {
+        id: 4,
+        nombre: "La Bomba",
+        marca: "Carolina Herrera",
+        precio: 39000,
+        genero: "mujer",
+        tipo: "disenador",
+        imagen: "imagenes/laBomba.jpeg"
+    }
 ];
 
-    let html = "";
+
+// ==============================
+// GUARDAR DATOS
+// ==============================
 
 function guardarDatosLocal() {
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-    localStorage.setItem("favoritos", JSON.stringify(favoritos));
+
+    localStorage.setItem(
+        "carrito",
+        JSON.stringify(carrito)
+    );
+
+    localStorage.setItem(
+        "favoritos",
+        JSON.stringify(favoritos)
+    );
 }
 
-function renderProductos(lista){
 
-    productGrid.innerHTML="";
-    
-    lista.forEach(producto=>{
+// ==============================
+// MOSTRAR PRODUCTOS
+// ==============================
+
+function renderProductos(lista) {
+
+    productGrid.innerHTML = "";
+
+    lista.forEach(producto => {
+
+        const esFavorito = favoritos.some(
+            item => item.id === producto.id
+        );
+
         productGrid.innerHTML += `
-        <div class="product-card"
-            data-id="${producto.id}"
-            data-nombre="${producto.nombre}"
-            data-marca="${producto.marca}"
-            data-precio="${producto.precio}"
-            data-genero="${producto.genero}"
-            data-tipo="${producto.tipo}">
+            <div
+                class="product-card"
+                data-id="${producto.id}"
+                data-nombre="${producto.nombre}"
+                data-marca="${producto.marca}"
+                data-precio="${producto.precio}"
+                data-genero="${producto.genero}"
+                data-tipo="${producto.tipo}"
+            >
 
-            <div class="favorito">♡</div>
+                <div class="favorito ${esFavorito ? "activo" : ""}">
+                    ${esFavorito ? "♥" : "♡"}
+                </div>
 
-            <img
-                src="${producto.imagen}"
-                alt="${producto.nombre}"
-                class="product-image">
+                <img
+                    src="${producto.imagen}"
+                    alt="${producto.nombre}"
+                    class="product-image"
+                >
 
-            <h3>${producto.nombre}</h3>
+                <h3>${producto.nombre}</h3>
 
-            <p>${producto.marca}</p>
+                <p>${producto.marca}</p>
 
-            <span>$${producto.precio.toLocaleString("es-AR")}</span>
+                <span>
+                    $${producto.precio.toLocaleString("es-AR")}
+                </span>
 
-            <button>Agregar al carrito</button>
+                <button>
+                    Agregar al carrito
+                </button>
 
-        </div>
-
+            </div>
         `;
     });
 
+    configurarEventosProductos();
 }
 
-renderProductos(catalogo); //renderiza la funcion de cartas.
 
-const productos = document.querySelectorAll(".product-card"); //importante, no tocar.
+// ==============================
+// EVENTOS DE PRODUCTOS
+// ==============================
 
 function configurarEventosProductos() {
 
-    const botonesCarrito = document.querySelectorAll(".product-card button");
-    const corazones = document.querySelectorAll(".favorito");
-    const imagenesPerfumes = document.querySelectorAll(".product-image");
+    const botonesCarrito =
+        document.querySelectorAll(".product-card button");
+
+    const corazones =
+        document.querySelectorAll(".favorito");
+
+    const imagenesPerfumes =
+        document.querySelectorAll(".product-image");
+
 
     // AGREGAR AL CARRITO
 
@@ -109,26 +164,38 @@ function configurarEventosProductos() {
 
         boton.addEventListener("click", () => {
 
-            const producto = boton.closest(".product-card");
+            const producto =
+                boton.closest(".product-card");
 
-            const id = Number(producto.dataset.id);
-            const nombre = producto.dataset.nombre;
-            const precio = Number(producto.dataset.precio);
-            const imagen = producto.querySelector(".product-image").src;
-            const productoExistente = carrito.find(item => item.id === id);
+            const id =
+                Number(producto.dataset.id);
+
+            const nombre =
+                producto.dataset.nombre;
+
+            const precio =
+                Number(producto.dataset.precio);
+
+            const imagen =
+                producto.querySelector(".product-image").src;
+
+            const productoExistente =
+                carrito.find(item => item.id === id);
+
 
             if (productoExistente) {
+
                 productoExistente.cantidad++;
 
             } else {
+
                 carrito.push({
-                    id,
-                    nombre,
-                    precio,
-                    imagen,
+                    id: id,
+                    nombre: nombre,
+                    precio: precio,
+                    imagen: imagen,
                     cantidad: 1
                 });
-
             }
 
             guardarDatosLocal();
@@ -136,112 +203,104 @@ function configurarEventosProductos() {
         });
     });
 
+
     // FAVORITOS
 
-  corazones.forEach(corazon => {
+    corazones.forEach(corazon => {
 
-    corazon.addEventListener("click", () => {
+        corazon.addEventListener("click", () => {
 
-        const producto = corazon.closest(".product-card");
-        const id = Number(producto.dataset.id);
-        const nombre = producto.dataset.nombre;
-        const precio = Number(producto.dataset.precio);
-        const imagen = producto.querySelector(".product-image").src;
+            const producto =
+                corazon.closest(".product-card");
 
-        const existe = favoritos.find(item => item.id === id);
+            const id =
+                Number(producto.dataset.id);
 
-        if (existe) {
+            const nombre =
+                producto.dataset.nombre;
 
-            favoritos = favoritos.filter(
-                item => item.id !== id
-            );
-        });
-    }
+            const precio =
+                Number(producto.dataset.precio);
 
-            corazon.textContent = "♡";
-            corazon.classList.remove("activo");
+            const imagen =
+                producto.querySelector(".product-image").src;
 
-        } else {
+            const existe =
+                favoritos.find(item => item.id === id);
 
-            favoritos.push({
-                id,
-                nombre,
-                precio,
-                imagen
-            });
 
-            corazon.textContent = "♥";
-            corazon.classList.add("activo");
+            if (existe) {
 
-    // Categorías
-
-    if (filtro !== "todos") {
-
-        if (filtro === "menor-mayor") {
-
-            resultado.sort((a,b) => a.precio - b.precio);
-
-        } else if (filtro === "mayor-menor") {
-
-            resultado.sort((a,b) => b.precio - a.precio);
-
-        } else {
-
-            resultado = resultado.filter(producto => {
-
-                return (
-                    producto.genero === filtro || producto.tipo === filtro
+                favoritos = favoritos.filter(
+                    item => item.id !== id
                 );
-            });
 
-        }
-    }
+                corazon.textContent = "♡";
+                corazon.classList.remove("activo");
 
-        actualizarFavoritos();
+            } else {
+
+                favoritos.push({
+                    id: id,
+                    nombre: nombre,
+                    precio: precio,
+                    imagen: imagen
+                });
+
+                corazon.textContent = "♥";
+                corazon.classList.add("activo");
+            }
+
+            guardarDatosLocal();
+            actualizarFavoritos();
+        });
     });
-});
+
 
     // IMAGEN DEL PERFUME
 
     imagenesPerfumes.forEach(imagen => {
 
         imagen.addEventListener("click", () => {
-            alert("Acá después vamos a abrir la ficha completa del perfume." );
+
+            alert(
+                "Acá después vamos a abrir la ficha completa del perfume."
+            );
+
         });
+
     });
 }
 
-configurarEventosProductos();
 
+// ==============================
+// CARRITO
+// ==============================
 
-function actualizarCarrito(){
+function actualizarCarrito() {
 
     listaCarrito.innerHTML = "";
 
     let cantidadTotal = 0;
-
     let precioTotal = 0;
 
 
-    if(carrito.length === 0){
+    if (carrito.length === 0) {
 
         listaCarrito.innerHTML = `
             <p class="carrito-vacio">
                 Tu carrito está vacío.
             </p>
         `;
-
     }
 
 
     carrito.forEach((producto, index) => {
 
-        cantidadTotal +=
-            producto.cantidad;
+        cantidadTotal += producto.cantidad;
 
         precioTotal +=
-            producto.precio *
-            producto.cantidad;
+            producto.precio * producto.cantidad;
 
 
         const elemento =
@@ -253,7 +312,6 @@ function actualizarCarrito(){
 
 
         elemento.innerHTML = `
-
             <img
                 src="${producto.imagen}"
                 alt="${producto.nombre}"
@@ -299,495 +357,401 @@ function actualizarCarrito(){
             >
                 ×
             </button>
-
         `;
 
 
         listaCarrito.appendChild(elemento);
-
     });
 
 
     contadorCarrito.textContent =
         cantidadTotal;
 
-
     totalCarrito.textContent =
-        "$" +
-        precioTotal.toLocaleString("es-AR");
+        "$" + precioTotal.toLocaleString("es-AR");
 
+
+    // SUMAR PRODUCTO
 
     document
         .querySelectorAll(".sumar")
         .forEach(boton => {
 
-            boton.addEventListener(
-                "click",
-                () => {
+            boton.addEventListener("click", () => {
 
-                    const index =
-                        Number(
-                            boton.dataset.index
-                        );
+                const index =
+                    Number(boton.dataset.index);
 
-                    carrito[index].cantidad++;
+                carrito[index].cantidad++;
 
-                    actualizarCarrito();
-
-                }
-            );
-
+                guardarDatosLocal();
+                actualizarCarrito();
+            });
         });
+
+
+    // RESTAR PRODUCTO
 
     document
         .querySelectorAll(".restar")
         .forEach(boton => {
 
-            boton.addEventListener(
-                "click",
-                () => {
+            boton.addEventListener("click", () => {
 
-                    const index =
-                        Number(
-                            boton.dataset.index
-                        );
+                const index =
+                    Number(boton.dataset.index);
 
 
-                    if(
-                        carrito[index].cantidad > 1
-                    ){
+                if (carrito[index].cantidad > 1) {
 
-                        carrito[index].cantidad--;
+                    carrito[index].cantidad--;
 
-                    }else{
+                } else {
 
-                        carrito.splice(
-                            index,
-                            1
-                        );
-
-                    }
-
-
-                    guardarDatosLocal();
-                    actualizarCarrito();
-
+                    carrito.splice(index, 1);
                 }
-            );
 
+                guardarDatosLocal();
+                actualizarCarrito();
+            });
         });
+
+
+    // ELIMINAR PRODUCTO
 
     document
-        .querySelectorAll(
-            ".eliminar-producto"
-        )
+        .querySelectorAll(".eliminar-producto")
         .forEach(boton => {
 
-            boton.addEventListener(
-                "click",
-                () => {
+            boton.addEventListener("click", () => {
 
-                    const index =
-                        Number(
-                            boton.dataset.index
-                        );
+                const index =
+                    Number(boton.dataset.index);
 
-                    carrito.splice(
-                        index,
-                        1
-                    );
+                carrito.splice(index, 1);
 
-                    guardarDatosLocal();
-                    actualizarCarrito();
-
-                }
-            );
-
+                guardarDatosLocal();
+                actualizarCarrito();
+            });
         });
-
 }
 
-abrirCarrito.addEventListener(
-    "click",
-    () => {
 
-        modalCarrito.classList.add(
-            "activo"
-        );
+// ABRIR CARRITO
 
-        actualizarCarrito();
+abrirCarrito.addEventListener("click", () => {
 
-    }
-);
+    modalCarrito.classList.add("activo");
 
-cerrarCarrito.addEventListener(
-    "click",
-    () => {
+    actualizarCarrito();
+});
 
-        modalCarrito.classList.remove(
-            "activo"
-        );
 
-    }
-);
+// CERRAR CARRITO
 
-vaciarCarrito.addEventListener(
-    "click",
-    () => {
-        carrito = [];
-        guardarDatosLocal();
-        actualizarCarrito();
-    }
-);
+cerrarCarrito.addEventListener("click", () => {
 
-const contadorFavoritos =
-    document.getElementById(
-        "contadorFavoritos"
-    );
+    modalCarrito.classList.remove("activo");
+});
 
-const abrirFavoritos =
-    document.getElementById(
-        "abrirFavoritos"
-    );
 
-const modalFavoritos =
-    document.getElementById(
-        "modalFavoritos"
-    );
+// VACIAR CARRITO
 
-const cerrarFavoritos =
-    document.getElementById(
-        "cerrarFavoritos"
-    );
+vaciarCarrito.addEventListener("click", () => {
 
-const listaFavoritos =
-    document.getElementById(
-        "listaFavoritos"
-    );
+    carrito = [];
 
+    guardarDatosLocal();
+    actualizarCarrito();
+});
+
+
+// ==============================
+// FAVORITOS
+// ==============================
 
 function actualizarFavoritos() {
 
-    contadorFavoritos.textContent = favoritos.length;
+    contadorFavoritos.textContent =
+        favoritos.length;
+
     listaFavoritos.innerHTML = "";
+
 
     if (favoritos.length === 0) {
 
-        listaFavoritos.innerHTML = ` <p class="carrito-vacio"> No tenés perfumes favoritos.</p>`;
+        listaFavoritos.innerHTML = `
+            <p class="carrito-vacio">
+                No tenés perfumes favoritos.
+            </p>
+        `;
 
         return;
     }
 
+
     favoritos.forEach((producto, index) => {
 
-        const elemento = document.createElement("div");
-        elemento.classList.add("producto-favorito");
+        const elemento =
+            document.createElement("div");
+
+        elemento.classList.add(
+            "producto-favorito"
+        );
+
 
         elemento.innerHTML = `
-
-            <img src="${producto.imagen}" alt="${producto.nombre}">
+            <img
+                src="${producto.imagen}"
+                alt="${producto.nombre}"
+            >
 
             <div>
-                <h3>${producto.nombre}</h3>
-                <p>$${producto.precio.toLocaleString("es-AR")}</p>
+
+                <h3>
+                    ${producto.nombre}
+                </h3>
+
+                <p>
+                    $${producto.precio.toLocaleString("es-AR")}
+                </p>
+
             </div>
 
-            <button class="eliminar-favorito" data-index="${index}"> × </button>
+            <button
+                class="eliminar-favorito"
+                data-index="${index}"
+            >
+                ×
+            </button>
         `;
+
 
         listaFavoritos.appendChild(elemento);
     });
 
-    document.querySelectorAll(".eliminar-favorito").forEach(boton => {
-        
-        boton.addEventListener("click", () => {
-                const index =Number(boton.dataset.index);
-                const id = favoritos[index].id;
+
+    document
+        .querySelectorAll(".eliminar-favorito")
+        .forEach(boton => {
+
+            boton.addEventListener("click", () => {
+
+                const index =
+                    Number(boton.dataset.index);
+
+                const id =
+                    favoritos[index].id;
+
                 favoritos.splice(index, 1);
 
-                document.querySelectorAll(".favorito").forEach(corazon => {
 
-                        const producto =corazon.closest(".product-card");
+                document
+                    .querySelectorAll(".favorito")
+                    .forEach(corazon => {
 
-                        if (Number(producto.dataset.id) === id) {
+                        const producto =
+                            corazon.closest(".product-card");
+
+                        if (
+                            Number(producto.dataset.id) === id
+                        ) {
+
                             corazon.textContent = "♡";
-                            corazon.classList.remove("activo");
+
+                            corazon.classList.remove(
+                                "activo"
+                            );
                         }
                     });
 
+
+                guardarDatosLocal();
                 actualizarFavoritos();
             });
         });
 }
 
-abrirFavoritos.addEventListener("click",() => {
-    modalFavoritos.classList.add("activo"); actualizarFavoritos();
+
+// ABRIR FAVORITOS
+
+abrirFavoritos.addEventListener("click", () => {
+
+    modalFavoritos.classList.add("activo");
+
+    actualizarFavoritos();
 });
 
-cerrarFavoritos.addEventListener("click",() => { 
+
+// CERRAR FAVORITOS
+
+cerrarFavoritos.addEventListener("click", () => {
+
     modalFavoritos.classList.remove("activo");
 });
 
-const buscador = document.getElementById("buscador");
-const searchIcon = document.querySelector(".search-icon");
-const searchContainer = document.querySelector(".search-container");
 
-searchIcon.addEventListener("click",() => {
-        searchContainer.classList.toggle("active");
+// ==============================
+// BUSCADOR
+// ==============================
 
-        if(searchContainer.classList.contains("active")){
+searchIcon.addEventListener("click", () => {
 
-            buscador.focus();
+    searchContainer.classList.toggle("active");
 
-        }else{
-            buscador.value = "";
-            aplicarFiltros();
-        }
+
+    if (
+        searchContainer.classList.contains("active")
+    ) {
+
+        buscador.focus();
+
+    } else {
+
+        buscador.value = "";
+
+        aplicarFiltros();
     }
-);
-
-            productos.forEach(producto => {
-                    producto.style.display = "block";
-                }
-            );
-        }
-    }
-);
+});
 
 
 buscador.addEventListener(
     "input",
-    () => {
-
-        const texto =
-            buscador.value
-                .toLowerCase()
-                .trim();
+    aplicarFiltros
+);
 
 
-        productos.forEach(
-            producto => {
+// ==============================
+// FILTROS
+// ==============================
 
-                const contenido =
-                    producto.textContent
-                        .toLowerCase();
+function aplicarFiltros() {
+
+    const texto =
+        buscador.value.toLowerCase().trim();
 
 
-                if(
-                    contenido.includes(texto)
-                ){
+    const botonActivo =
+        document.querySelector(".categoria.activo");
 
-                    producto.style.display =
-                        "block";
 
-                }else{
+    const filtro =
+        botonActivo
+            ? botonActivo.dataset.filtro
+            : "todos";
 
-                    producto.style.display =
-                        "none";
 
-                }
+    let resultado =
+        [...catalogo];
 
-            }
+
+    // BUSCAR
+
+    if (texto) {
+
+        resultado =
+            resultado.filter(producto => {
+
+                return (
+                    producto.nombre
+                        .toLowerCase()
+                        .includes(texto)
+
+                    ||
+
+                    producto.marca
+                        .toLowerCase()
+                        .includes(texto)
+                );
+            });
+    }
+
+
+    // FILTRAR Y ORDENAR
+
+    if (filtro === "menor-mayor") {
+
+        resultado.sort(
+            (a, b) => a.precio - b.precio
         );
 
-    }
-);
+    } else if (filtro === "mayor-menor") {
 
-const botonesCategorias =
-    document.querySelectorAll(
-        ".categoria"
-    );
-
-
-botonesCategorias.forEach(
-    boton => {
-
-        boton.addEventListener(
-            "click",
-            () => {
-
-                botonesCategorias.forEach(
-                    b => {
-
-                        b.classList.remove(
-                            "activo"
-                        );
-
-                    }
-                );
-
-
-                boton.classList.add(
-                    "activo"
-                );
-
-
-                const filtro =
-                    boton.dataset.filtro;
-
-                if(
-                    filtro === "menor-mayor"
-                ){
-
-                    const ordenados =
-                        [...productos].sort(
-                            (a,b) => {
-
-                                return (
-                                    Number(
-                                        a.dataset.precio
-                                    ) -
-                                    Number(
-                                        b.dataset.precio
-                                    )
-                                );
-
-                            }
-                        );
-
-
-                    ordenados.forEach(
-                        producto => {
-
-                            producto.style.display =
-                                "block";
-
-                            document
-                                .querySelector(
-                                    ".product-grid"
-                                )
-                                .appendChild(
-                                    producto
-                                );
-
-                        }
-                    );
-
-                    return;
-                }
-
-                if(
-                    filtro === "mayor-menor"
-                ){
-
-                    const ordenados =
-                        [...productos].sort(
-                            (a,b) => {
-
-                                return (
-                                    Number(
-                                        b.dataset.precio
-                                    ) -
-                                    Number(
-                                        a.dataset.precio
-                                    )
-                                );
-
-                            }
-                        );
-
-
-                    ordenados.forEach(
-                        producto => {
-
-                            producto.style.display =
-                                "block";
-
-                            document
-                                .querySelector(
-                                    ".product-grid"
-                                )
-                                .appendChild(
-                                    producto
-                                );
-
-                        }
-                    );
-
-                    return;
-                }
-
-
-                // FILTROS
-
-                productos.forEach(
-                    producto => {
-
-                        const genero =
-                            producto.dataset.genero;
-
-                        const tipo =
-                            producto.dataset.tipo;
-
-
-                        if(
-                            filtro === "todos"
-                        ){
-
-                            producto.style.display =
-                                "block";
-
-                        }
-
-                        else if(
-                            filtro === genero
-                        ){
-
-                            producto.style.display =
-                                "block";
-
-                        }
-
-                        else if(
-                            filtro === tipo
-                        ){
-
-                            producto.style.display =
-                                "block";
-
-                        }
-
-                        else{
-
-                            producto.style.display =
-                                "none";
-
-                        }
-
-                    }
-                );
-
-            }
+        resultado.sort(
+            (a, b) => b.precio - a.precio
         );
 
+    } else if (filtro !== "todos") {
+
+        resultado =
+            resultado.filter(producto => {
+
+                return (
+                    producto.genero === filtro
+                    ||
+                    producto.tipo === filtro
+                );
+            });
     }
-);
 
 
-const botonContacto =
-    document.getElementById(
-        "botonContacto"
+    renderProductos(resultado);
+}
+
+
+// BOTONES DE CATEGORÍAS
+
+botonesCategorias.forEach(boton => {
+
+    boton.addEventListener("click", () => {
+
+        botonesCategorias.forEach(b => {
+
+            b.classList.remove("activo");
+
+        });
+
+
+        boton.classList.add("activo");
+
+        aplicarFiltros();
+    });
+});
+
+
+// ==============================
+// CONTACTO
+// ==============================
+
+botonContacto.addEventListener("click", e => {
+
+    e.preventDefault();
+
+    contactoOpciones.classList.toggle(
+        "activo"
     );
-
-const contactoOpciones =
-    document.getElementById(
-        "contactoOpciones"
-    );
+});
 
 
-botonContacto.addEventListener("click", (e) => {
-    
-    e.preventDefault()
-    contactoOpciones.classList.toggle("activo");
+document.addEventListener("click", e => {
+
+    if (
+        !e.target.closest(".contacto-menu")
+    ) {
+
+        contactoOpciones.classList.remove(
+            "activo"
+        );
     }
-);
+});
 
-document.addEventListener("click",(e) => {
 
-        if(!e.target.closest(".contacto-menu")){
+// ==============================
+// INICIAR
+// ==============================
 
-            contactoOpciones.classList.remove("activo");
+renderProductos(catalogo);
 
-        }
-    }
-);
+actualizarCarrito();
+
+actualizarFavoritos();
