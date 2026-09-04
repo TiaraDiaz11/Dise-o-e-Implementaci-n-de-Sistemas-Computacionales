@@ -26,7 +26,7 @@ const catalogo = [
         id: 1,
         nombre: "Le Male Elixir",
         marca: "Jean Paul Gaultier",
-        precio: 50000,
+        precio: 33000,
         genero: "hombre",
         tipo: "disenador",
         imagen: "imagenes/leMaleElixir.jpeg"
