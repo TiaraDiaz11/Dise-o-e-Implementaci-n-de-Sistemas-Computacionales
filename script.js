@@ -109,7 +109,6 @@ function configurarEventosProductos() {
             if (productoExistente) {productoExistente.cantidad++;
 
             } else {
-
                 carrito.push({id: id, nombre: nombre, precio: precio, imagen: imagen, cantidad: 1});
             }
 
@@ -133,7 +132,6 @@ function configurarEventosProductos() {
                 corazon.classList.remove("activo");
 
             } else {
-
                 favoritos.push({id: id, nombre: nombre, precio: precio, imagen: imagen});
                 corazon.textContent = "♥";
                 corazon.classList.add("activo");
@@ -146,7 +144,6 @@ function configurarEventosProductos() {
 
     imagenesPerfumes.forEach(imagen => {
         imagen.addEventListener("click", () => {
-
             alert("Acá después vamos a abrir la ficha completa del perfume.");
         });
     });
@@ -207,13 +204,11 @@ function actualizarCarrito() {
     .forEach(boton => {
         
         boton.addEventListener("click", () => {
-            
             const index = Number(boton.dataset.index);
             
             if (carrito[index].cantidad > 1) {carrito[index].cantidad--;
 
             } else {
-                
                 carrito.splice(index, 1);
             }
             guardarDatosLocal();
@@ -225,7 +220,6 @@ function actualizarCarrito() {
         .forEach(boton => {
 
             boton.addEventListener("click", () => {
-                
                 const index = Number(boton.dataset.index);
                 carrito.splice(index, 1);
                 guardarDatosLocal();
@@ -245,7 +239,6 @@ function actualizarCarrito() {
     
     vaciarCarrito.addEventListener("click", () => {
         carrito = [];
-        
         guardarDatosLocal();
         actualizarCarrito();
     });
@@ -263,20 +256,16 @@ function actualizarCarrito() {
     }
     
     favoritos.forEach((producto, index) => {
- 
         const elemento = document.createElement("div");
         elemento.classList.add("producto-favorito");
-
         elemento.innerHTML = `
             <img src="${producto.imagen}" alt="${producto.nombre}">
             <div>
                 <h3>${producto.nombre}</h3>
                 <p>$${producto.precio.toLocaleString("es-AR")}</p>
             </div>
-
             <button class="eliminar-favorito" data-index="${index}">×</button>
         `;
-        
         listaFavoritos.appendChild(elemento);
     });
 
@@ -322,7 +311,6 @@ function actualizarCarrito() {
             
             } else {
                 buscador.value = "";
-                
                 aplicarFiltros();
             }
         });
@@ -351,7 +339,6 @@ function actualizarCarrito() {
                 resultado.sort((a, b) => a.precio - b.precio);
             
             } else if (filtro === "mayor-menor") {resultado.sort((a, b) => b.precio - a.precio);
-
             } else if (filtro !== "todos") {
                 
                 resultado = resultado.filter(producto => {

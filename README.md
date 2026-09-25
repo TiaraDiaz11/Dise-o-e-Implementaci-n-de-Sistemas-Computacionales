@@ -1,5 +1,4 @@
 PAGINA WEB DE PERFUMES:
-
 - Buscador
 - Precio contado
 - Precio en cuotas
@@ -14,3 +13,6 @@ PAGINA WEB DE PERFUMES:
 - Descripcion corta del perfume (Diseñador/Arabe, Salida, Corazon y familia olfativa)
 - Contacto (WhatsApp, Instagram)
 - Backend
+
+DESCRIPCIÓN:
+QUE ES EL PROYECTO?
