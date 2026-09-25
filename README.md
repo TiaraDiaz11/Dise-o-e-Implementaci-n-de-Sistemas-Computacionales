@@ -13,6 +13,3 @@ PAGINA WEB DE PERFUMES:
 - Descripcion corta del perfume (Diseñador/Arabe, Salida, Corazon y familia olfativa)
 - Contacto (WhatsApp, Instagram)
 - Backend
-
-DESCRIPCIÓN:
-QUE ES EL PROYECTO?
