@@ -85,6 +85,54 @@ const catalogo = [
         imagen: "imagenes/laBomba.jpeg",
         descripcion: "Gourmand intenso. Canela, caramelo y praline en el corazon, sobre una base de vainilla y tonka bean que deja un rastro dulce.",
         notas: ["Canela", "Caramelo", "Praline", "Vainilla"]
+    },
+    {
+        id: 5,
+        nombre: "Khamrah Qahwa",
+        marca: "Lattafa",
+        precio: 50000,
+        cantidadml: "100ml",
+        genero: "unisex",
+        tipo: "oriental",
+        imagen: "imagenes/lattafaKhamrah.jpg",
+        descripcion: "Es una fragancia cálida, opulenta y de tinte gourmand (dulce y comestible), famosa por su gran parecido conceptual a los postres especiados y licores frente a la chimenea.",
+        notas: ["Canela", "Nuez Moscada" , "Bergamota"]
+    },
+    {
+        id: 6,
+        nombre: "Khamrah Waha",
+        marca: "Lattafa",
+        precio: 45600,
+        cantidadml: "100ml",
+        genero: "unisex",
+        tipo: "Aromática Acuática",
+        imagen: "imagenes/lattafaKhamrahWaha.jpg",
+        descripcion: "Inicia con un fuerte chispante cítrico y notas acuáticas/saladas (destacando el pepino y la bergamota) para luego dar paso a un secado dulce, amaderado y avainillado característico del fondo de haba tonka y vainilla",
+        notas: ["Yuzu","Bergamota", "Enebro", "Jengibre"]
+    },
+    {
+        id: 7,
+        nombre: "Le Beau",
+        marca: "Jean Paul Galtier",
+        precio: 325600,
+        cantidadml: "125ml",
+        genero: "hombre",
+        tipo: "Amaderada Aromática",
+        imagen: "imagenes/jeanPaulGaltierLeBeau.jpg",
+        descripcion: "Es una fragancia tropical, dulce, fresca y muy seductora, reconocida por su característico toque cremoso de coco combinado con la calidez del haba tonka.",
+        notas: ["Bergamota", "Madera de coco", "Haba Tonka"]
+    },
+    {
+        id: 8,
+        nombre: "Erba Pura",
+        marca: "Xerjoff",
+        precio: 250000,
+        cantidadml: "100ml",
+        genero: "unisex",
+        tipo: "Oriental",
+        imagen: "imagenes/erbaPura.jpg",
+        descripcion:" Destaca por ser un aroma dulce, alegre, estridente y sumamente almizclado que no pasa desapercibido. Debido a su potencia, se recomienda moderar las aplicaciones para evitar que resulte invasivo en espacios cerrados.",
+        notas: [" Naranja Siciliana", "Bergamota de Calabria", "Limón Siciliano"]
     }
 ];
 
