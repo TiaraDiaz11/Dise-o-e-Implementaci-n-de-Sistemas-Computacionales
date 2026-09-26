@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Login</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,5 +40,85 @@
     </div>
 
     <script src="script.js"></script>
+=======
+    <title>Login - Unlock Fragancias</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <h1>Unlock Fragancias</h1>
+
+        <div id="loginSection">
+
+            <h2>Iniciar sesión</h2>
+
+            <form id="loginForm">
+
+                <div class="campo">
+                    <label for="loginEmail">Correo electrónico</label>
+                    <input type="email" id="loginEmail" placeholder="Ingresá tu correo" required>
+                </div>
+
+                <div class="campo">
+                    <label for="loginPassword">Contraseña</label>
+                    <input type="password" id="loginPassword" placeholder="Ingresá tu contraseña" required>
+                </div>
+
+                <button type="submit">Iniciar sesión</button>
+                <p id="loginMensaje"></p>
+
+            </form>
+
+            <p class="registro"> ¿No tenés una cuenta?
+                <a href="#" id="mostrarRegistro">Registrate</a>
+            </p>
+
+        </div>
+
+        <div id="registroSection" style="display: none;">
+
+            <h2>Crear cuenta</h2>
+
+            <form id="registroForm">
+
+                <div class="campo">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" placeholder="Ingresá tu nombre" required>
+                </div>
+
+                <div class="campo">
+                    <label for="registroEmail">Correo electrónico</label>
+                    <input type="email" id="registroEmail" placeholder="Ingresá tu correo" required>
+                </div>
+
+                <div class="campo">
+                    <label for="registroPassword">Contraseña</label>
+                    <input type="password" id="registroPassword" placeholder="Creá una contraseña" required>
+                </div>
+
+                <div class="campo">
+                    <label for="confirmarPassword">Confirmar contraseña</label>
+                    <input type="password" id="confirmarPassword" placeholder="Repetí tu contraseña" required>
+                </div>
+
+                <button type="submit">Crear cuenta</button>
+                <p id="registroMensaje"></p>
+
+            </form>
+
+            <p class="registro"> ¿Ya tenés una cuenta?
+                <a href="#" id="volverLogin">Iniciar sesión</a>
+            </p>
+
+        </div>
+
+        <a href="index.html" class="volver">Volver a la página</a>
+        
+    </div>
+    <script src="login.js"></script>
+>>>>>>> ceeb7d06b7740968d055dab1a11309ab596c888d
 </body>
 </html>
