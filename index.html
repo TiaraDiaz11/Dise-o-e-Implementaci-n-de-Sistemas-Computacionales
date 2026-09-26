@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlock Fragancias</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header>
+        
+        <nav class="navbar">
+            <div class="logo">
+                <img src="imagenes/logoUnlockFragancias.jpg" alt="Unlock Fragancias" class="logo-img">
+                <div class="brand-text">
+                    <h1>UNLOCK</h1>
+                    <span>FRAGANCIAS</span>
+                </div>
+            </div>
+
+            <ul class="nav-links">
+                <li>
+                    <a href="#">Inicio</a></li><li>
+                    <a href="#productos">Perfumes</a>
+                </li>
+
+                <li class="contacto-menu">
+                    <a href="#" id="botonContacto">Contacto</a>
+                    <div class="contacto-opciones" id="contactoOpciones">
+
+                        <a href="https://wa.me/5492223500815" target="_blank" rel="noopener noreferrer">
+                            <img src="./assets/whatsapp.png" alt="WhatsApp">WhatsApp</a>
+                        <a href="https://www.instagram.com/unlockfragancias__/" target="_blank" rel="noopener noreferrer">
+                            <img src="./assets/Instagram.png" alt="Instagram">Instagram</a>
+
+                    </div>
+                </li>
+            </ul>
+
+            <div class="icons">
+
+                <div class="search-container">
+
+                    <input type="text" id="buscador" placeholder="Buscar perfume...">
+                    <svg class="icon-svg search-icon" viewBox="0 0 24 24" fill="none">
+                        <circle cx="11" cy="11" r="7"></circle>
+                        <line x1="20" y1="20" x2="16.65" y2="16.65"></line>
+                    </svg>
+
+                </div>
+
+                <div class="icon-container" id="abrirFavoritos" title="Favoritos">
+                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 21s-7-4.35-9.5-8.5C0 8 2.5 3 7 3c2.3 0 4 1.2 5 3 1-1.8 2.7-3 5-3 4.5 0 7 5 4.5 9.5C19 16.65 12 21 12 21z">
+                        </path>
+                    </svg>
+
+                    <span id="contadorFavoritos">0</span>
+
+                </div>
+
+                <div class="icon-container" id="abrirCarrito" title="Carrito">
+                    
+                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none">
+                        <path d="M3 4h2l2 10h10l2-7H7"></path>
+                        <circle cx="9" cy="19" r="1"></circle>
+                        <circle cx="17" cy="19" r="1"></circle>
+                    </svg>
+                    <span id="contador">0</span>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+    <section class="products" id="productos">
+        <h2>Fragancias</h2>
+        <div class="categorias">
+            <button class="categoria activo" data-filtro="todos">Todos</button>
+            <button class="categoria" data-filtro="hombre">Hombre</button>
+            <button class="categoria" data-filtro="mujer"> Mujer </button>
+            <button class="categoria" data-filtro="unisex">Unisex</button>
+            <button class="categoria" data-filtro="arabe"> Árabes</button>
+            <button class="categoria" data-filtro="disenador">Diseñador</button>
+            <button class="categoria" data-filtro="menor-mayor">Menor a mayor</button>
+            <button class="categoria" data-filtro="mayor-menor">Mayor a menor</button>
+        </div>
+
+            <div class="product-grid" id="productGrid"></div>
+
+    </section>
+
+    <section class="reviews">
+
+        <h2 class="opiniones"><span>Opiniones de Clientes</span></h2>
+
+        <div class="review-grid">
+
+            <div class="review-card">
+                <p>"Mucha variedad de perfumes."</p>
+                <span>⭐⭐⭐⭐⭐</span>
+            </div>
+
+            <div class="review-card">
+                <p>"Excelente relación precio-calidad."</p>
+                <span>⭐⭐⭐⭐⭐</span>
+            </div>
+
+            <div class="review-card">
+                <p>"Muy buena experiencia de compra."</p>
+                <span>⭐⭐⭐⭐⭐</span>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="modal" id="modalFavoritos">
+        <div class="modal-content">
+            <button class="cerrar-modal" id="cerrarFavoritos">×</button>
+            <h2>Mis favoritos ❤️</h2>
+            <div id="listaFavoritos"></div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalCarrito">
+        <div class="modal-content">
+            <button class="cerrar-modal" id="cerrarCarrito">×</button>
+            <h2>Mi carrito </h2>
+
+            <div id="listaCarrito"></div>
+            <div class="total-carrito">
+                <strong>Total:</strong>
+                <span id="totalCarrito">$0</span>
+            </div>
+
+            <button class="vaciar-carrito" id="vaciarCarrito">Vaciar carrito</button>
+        </div>
+    </div>
+
+    <div class="modal-ficha" id="modalFicha" hidden>
+        <div class="modal-ficha__overlay" data-cerrar-ficha></div>
+
+        <div class="modal-ficha__card" role="dialog" aria-modal="true" aria-labelledby="fichaTitulo">
+            <button class="modal-ficha__cerrar" id="cerrarFicha" data-cerrar-ficha aria-label="Cerrar">&times;</button>
+
+            <img class="modal-ficha__img" id="fichaImg" src="" alt="">
+            <p class="modal-ficha__marca" id="fichaMarca"></p>
+            <h2 class="modal-ficha__titulo" id="fichaTitulo"></h2>
+            <span class="modal-ficha__precio" id="fichaPrecio"></span>
+            <p class="modal-ficha__ml" id="fichaMl"></p>
+            <p class="modal-ficha__desc" id="fichaDesc"></p>
+
+            <ul class="modal-ficha__notas" id="fichaNotas"></ul>
+            <p class="modal-ficha__genero">Género: <span id="fichaGenero"></span></p>
+
+            <button class="modal-ficha__agregar" id="fichaAgregar">Agregar al carrito</button>
+        </div>
+    </div>
+
+    <footer>
+        <p class="copyright">© 2026 Unlock Fragancias</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
