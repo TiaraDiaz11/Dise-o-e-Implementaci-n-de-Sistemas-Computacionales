@@ -1,4 +1,3 @@
-/* ============ RESET / BASE ============ */
 *{
     margin:0;
     padding:0;
@@ -10,7 +9,6 @@ body{
     background:#DDD1D1;
 }
 
-/* ============ NAVBAR ============ */
 .navbar{
     height:80px;
     padding:0 8%;
@@ -169,6 +167,15 @@ body{
     align-items:center;
 }
 
+.icono-usuario {
+    text-decoration: none;
+    color: inherit;
+}
+
+.icono-usuario:hover .icon-svg {
+    opacity: .5;
+}
+
 .search-container{
     display:flex;
     align-items:center;
@@ -199,7 +206,6 @@ body{
     cursor:pointer;
 }
 
-/* ============ SECTIONS ============ */
 section{
     padding:80px 8%;
 }
@@ -226,7 +232,6 @@ h2{
     to  { opacity:1; transform:translateY(0);   }
 }
 
-/* ============ PRODUCTOS ============ */
 .product-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
@@ -241,7 +246,6 @@ h2{
     border-radius:10px;
     transition:transform .3s, box-shadow .3s;
     position:relative;
-    /* animación de carga, con stagger por posición */
     animation:carta .7s ease-out both;
     animation-delay:calc(var(--i, 0) * 60ms);
 }
@@ -323,7 +327,6 @@ h2{
     color:red;
 }
 
-/* ============ FILTROS ============ */
 .categorias{
     display:flex;
     justify-content:center;
@@ -354,8 +357,6 @@ h2{
     border-bottom:2px solid #7A4C3B;
 }
 
-/* ============ OPINIONES ============ */
-/* .opiniones hace el recorte fijo; el span de adentro es el que se mueve */
 .opiniones{
     overflow:hidden;
 }
@@ -405,7 +406,6 @@ h2{
     letter-spacing:2px;
 }
 
-/* ============ MODALES (carrito / favoritos) ============ */
 .modal{
     position:fixed;
     top:0;
@@ -461,7 +461,6 @@ h2{
     color:#7A4C3B;
 }
 
-/* ============ FICHA DEL PERFUME ============ */
 .modal-ficha{
     position:fixed;
     inset:0;
@@ -473,7 +472,6 @@ h2{
     z-index:2000;
 }
 
-/* sin esto el atributo hidden no oculta nada */
 .modal-ficha[hidden]{
     display:none;
 }
@@ -609,7 +607,6 @@ h2{
     color:#7A4C3B;
 }
 
-/* ============ CARRITO / FAVORITOS (contenido) ============ */
 .producto-carrito{
     display:flex;
     align-items:center;
@@ -725,7 +722,6 @@ h2{
     font-weight:600;
 }
 
-/* ============ FOOTER ============ */
 .total-carrito{
     display:flex;
     justify-content:space-between;
@@ -766,9 +762,7 @@ h2{
 .copyright{
     text-align: center;
 }
-/* ============ FALLBACK / ACCESIBILIDAD ============ */
-/* sin scroll-driven (Firefox sin flag): mostrar todo estático */
-/* .product-card NO va acá: su animación "carta" es por tiempo y funciona en todos lados */
+
 @supports not (animation-timeline:view()){
     .review-card,
     .opiniones span,
@@ -793,46 +787,36 @@ h2{
     }
 }
 
-/* ============ RESPONSIVE ============ */
 @media (max-width:1200px){
-
     .product-grid{
         grid-template-columns:repeat(3,1fr);
     }
-
 }
 
 @media (max-width:900px){
-
     .navbar{
         flex-direction:column;
         gap:20px;
         height:auto;
         padding:20px 8%;
     }
-
     .nav-links{
         flex-wrap:wrap;
         justify-content:center;
     }
-
     .icons{
         justify-content:center;
     }
-
     .product-grid{
         grid-template-columns:repeat(2,1fr);
     }
-
     .review-grid{
         grid-template-columns:1fr;
     }
-
     .contacto-opciones{
         right:50%;
         transform:translateX(50%);
     }
-
     .contacto-opciones.activo{
         transform:translateX(50%) translateY(0);
     }
@@ -840,7 +824,6 @@ h2{
 }
 
 @media (max-width:768px){
-
     .brand-text h1{
         font-size:2.2rem;
         letter-spacing:5px;
@@ -848,39 +831,15 @@ h2{
 
     .brand-text span{
         font-size:.55rem;
-        letter-spacing:9px;
-    }
-
-    section{
-        padding:60px 6%;
-    }
-
+        letter-spacing:9px;}
+        section{padding:60px 6%;}
 }
 
 @media (max-width:500px){
-
-    .product-grid{
-        grid-template-columns:1fr;
-    }
-
-    .nav-links{
-        gap:15px;
-    }
-
-    .nav-links a{
-        font-size:.85rem;
-    }
-
-    .icons{
-        gap:18px;
-    }
-
-    .search-container.active input{
-        width:160px;
-    }
-
-    .product-image{
-        height:280px;
-    }
-
+    .product-grid{grid-template-columns:1fr;}
+    .nav-links{gap:15px;}
+    .nav-links a{font-size:.85rem;}
+    .icons{gap:18px;}
+    .search-container.active input{width:160px;}
+    .product-image{height:280px;}
 }

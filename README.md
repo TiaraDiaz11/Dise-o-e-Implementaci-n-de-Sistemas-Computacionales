@@ -1,8 +1,4 @@
 PAGINA WEB DE PERFUMES:
-<<<<<<< HEAD
-
-=======
->>>>>>> ceeb7d06b7740968d055dab1a11309ab596c888d
 - Buscador
 - Precio contado
 - Precio en cuotas

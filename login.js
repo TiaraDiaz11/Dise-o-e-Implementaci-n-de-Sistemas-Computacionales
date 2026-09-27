@@ -42,8 +42,7 @@ registroForm.addEventListener("submit", function(event) {
     setTimeout(function() {
         registroSection.style.display = "none";
         loginSection.style.display = "block";
-        registroForm.reset();
-    }, 1000);
+        registroForm.reset();}, 1000);
 
 });
 
@@ -64,14 +63,10 @@ loginForm.addEventListener("submit", function(event) {
     const usuario = JSON.parse(usuarioGuardado);
 
     if (email === usuario.email && password === usuario.password) {
-
         loginMensaje.textContent = "Inicio de sesión correcto";
         loginMensaje.style.color = "green";
-
         localStorage.setItem("sesionIniciada", "true");
-
-        setTimeout(function() {window.location.href = "index.html"
-            ;}, 1000);
+        setTimeout(function() {window.location.href = "index.html";}, 1000);
 
     } else {
         loginMensaje.textContent = "Correo o contraseña incorrectos";

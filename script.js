@@ -20,8 +20,6 @@ const searchContainer = document.querySelector(".search-container");
 const botonesCategorias = document.querySelectorAll(".categoria");
 const botonContacto = document.getElementById("botonContacto");
 const contactoOpciones = document.getElementById("contactoOpciones");
-
-// --- Ficha del perfume ---
 const modalFicha = document.getElementById("modalFicha");
 const cerrarFicha = document.getElementById("cerrarFicha");
 const fichaImg = document.getElementById("fichaImg");
@@ -145,13 +143,11 @@ function formatearPrecio(valor) {
     return "$" + valor.toLocaleString("es-AR");
 }
 
-// los items ya guardados en localStorage no tienen "ml": lo busca en el catálogo
 function obtenerMl(producto) {
     if (producto.ml) return producto.ml;
     return catalogo.find(p => p.id === producto.id)?.cantidadml || "";
 }
 
-// --- Render del catálogo ---
 function renderProductos(lista) {
     productGrid.innerHTML = lista.map((producto, index) => {
         const esFavorito = favoritos.some(item => item.id === producto.id);
@@ -188,7 +184,6 @@ function configurarEventosProductos() {
     });
 }
 
-// --- Favoritos / Carrito ---
 function alternarFavorito(producto, card) {
     const existe = favoritos.find(item => item.id === producto.id);
     const corazon = card.querySelector(".favorito");
@@ -245,7 +240,6 @@ function actualizarCarrito() {
     carrito.forEach((producto, index) => {
         cantidadTotal += producto.cantidad;
         precioTotal += producto.precio * producto.cantidad;
-
         const elemento = document.createElement("div");
         elemento.classList.add("producto-carrito");
         elemento.innerHTML = `
@@ -345,11 +339,9 @@ function actualizarFavoritos() {
     });
 }
 
-// --- Ficha del perfume ---
 function abrirFicha(producto, card) {
     productoFicha = producto;
     tarjetaOrigen = card;
-
     fichaImg.src = producto.imagen;
     fichaImg.alt = producto.nombre;
     fichaTitulo.textContent = producto.nombre;
@@ -359,10 +351,11 @@ function abrirFicha(producto, card) {
     fichaDesc.textContent = producto.descripcion;
     fichaGenero.textContent = producto.genero;
     fichaNotas.innerHTML = producto.notas
+
         .map(nota => `<li>${nota}</li>`)
         .join("");
-
-    modalFicha.hidden = false;
+    
+        modalFicha.hidden = false;
     document.body.style.overflow = "hidden";
     requestAnimationFrame(() => modalFicha.classList.add("is-open"));
     cerrarFicha.focus();
@@ -375,7 +368,6 @@ function cerrarModalFicha() {
     tarjetaOrigen?.querySelector(".product-image")?.focus();
 }
 
-// --- Eventos estáticos (una sola vez) ---
 abrirCarrito.addEventListener("click", () => {
     modalCarrito.classList.add("activo");
     actualizarCarrito();
@@ -435,13 +427,12 @@ function aplicarFiltros() {
     const texto = buscador.value.toLowerCase().trim();
     const botonActivo = document.querySelector(".categoria.activo");
     const filtro = botonActivo ? botonActivo.dataset.filtro : "todos";
-
     let resultado = [...catalogo];
 
     if (texto) {
         resultado = resultado.filter(producto => {
             return producto.nombre.toLowerCase().includes(texto) ||
-                   producto.marca.toLowerCase().includes(texto);
+            producto.marca.toLowerCase().includes(texto);
         });
     }
 
@@ -477,7 +468,6 @@ document.addEventListener("click", e => {
     }
 });
 
-// --- Init ---
 configurarEventosProductos();
 renderProductos(catalogo);
 actualizarCarrito();

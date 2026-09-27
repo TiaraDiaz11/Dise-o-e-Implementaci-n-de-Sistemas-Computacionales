@@ -3,60 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-    <title>Login</title>
+    <title>Login - Unlock Fragancias</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-    <div class="login-container">
-        <div class="login-box">
-            <h1>UNLOCK</h1>
-            <span class="subtitulo">FRAGANCIAS</span>
-            <h2>Iniciar Sesión</h2>
-
-            <form id="loginForm">
-                <div class="input-group">
-                    <label for="email">Correo electrónico</label>
-                    <input type="email" id="email" placeholder="Ingresá tu correo" required>
-                </div>
-
-                <div class="input-group">
-                    <label for="password">Contraseña</label>
-                    <input type="password" id="password" placeholder="Ingresá tu contraseña" required>
-                </div>
-
-                <button type="submit" class="btn-login">Ingresar</button>
-            </form>
-
-            <p class="registro">¿No tenés cuenta?
-                <a href="#" id="mostrarRegistro">Crear cuenta</a>
-            </p>
-
-        </div>
-    </div>
-
-    <script src="script.js"></script>
-=======
-    <title>Login - Unlock Fragancias</title>
     <link rel="stylesheet" href="login.css">
 </head>
 
 <body>
 
     <div class="login-container">
-
         <h1>Unlock Fragancias</h1>
 
         <div id="loginSection">
-
             <h2>Iniciar sesión</h2>
 
             <form id="loginForm">
-
                 <div class="campo">
                     <label for="loginEmail">Correo electrónico</label>
                     <input type="email" id="loginEmail" placeholder="Ingresá tu correo" required>
@@ -72,18 +34,17 @@
 
             </form>
 
-            <p class="registro"> ¿No tenés una cuenta?
+            <p class="registro">
+                ¿No tenés una cuenta?
                 <a href="#" id="mostrarRegistro">Registrate</a>
             </p>
 
         </div>
 
         <div id="registroSection" style="display: none;">
-
             <h2>Crear cuenta</h2>
 
             <form id="registroForm">
-
                 <div class="campo">
                     <label for="nombre">Nombre</label>
                     <input type="text" id="nombre" placeholder="Ingresá tu nombre" required>
@@ -91,7 +52,7 @@
 
                 <div class="campo">
                     <label for="registroEmail">Correo electrónico</label>
-                    <input type="email" id="registroEmail" placeholder="Ingresá tu correo" required>
+                    <input type="email" id="registroEmail" placeholder="Ingresá tu correo"required>
                 </div>
 
                 <div class="campo">
@@ -109,16 +70,20 @@
 
             </form>
 
-            <p class="registro"> ¿Ya tenés una cuenta?
+            <p class="registro">
+                ¿Ya tenés una cuenta?
                 <a href="#" id="volverLogin">Iniciar sesión</a>
             </p>
 
         </div>
 
-        <a href="index.html" class="volver">Volver a la página</a>
-        
+        <a href="index.html" class="volver">
+            Volver a la página
+        </a>
+
     </div>
+
     <script src="login.js"></script>
->>>>>>> ceeb7d06b7740968d055dab1a11309ab596c888d
+    
 </body>
 </html>
