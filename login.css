@@ -132,9 +132,9 @@ button:hover {
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    width: 25px;
-    height: 25px;
-    padding: 0;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
     margin: 0;
     border: none;
     background: transparent;
@@ -142,6 +142,10 @@ button:hover {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.campo-password button:hover {
+    background: transparent;
 }
 
 .campo-password button svg {
@@ -152,8 +156,5 @@ button:hover {
     stroke-width: 1.8;
     stroke-linecap: round;
     stroke-linejoin: round;
-}
-
-.campo-password button:hover svg {
-    opacity: 0.7;
+    pointer-events: none;
 }

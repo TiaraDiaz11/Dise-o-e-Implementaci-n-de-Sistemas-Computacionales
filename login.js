@@ -4,6 +4,7 @@ const mostrarRegistro = document.getElementById("mostrarRegistro");
 const volverLogin = document.getElementById("volverLogin");
 const loginForm = document.getElementById("loginForm");
 const registroForm = document.getElementById("registroForm");
+
 const loginPassword = document.getElementById("loginPassword");
 const mostrarPassword = document.getElementById("mostrarPassword");
 const iconoPassword = document.getElementById("iconoPassword");
@@ -30,25 +31,25 @@ mostrarPassword.addEventListener("click", () => {
     }
 });
 
-mostrarRegistro.addEventListener("click", function(event) {
+mostrarRegistro.addEventListener("click", event => {
     event.preventDefault();
+
     loginSection.style.display = "none";
     registroSection.style.display = "block";
-
 });
 
-volverLogin.addEventListener("click", function(event) {
+volverLogin.addEventListener("click", event => {
     event.preventDefault();
+
     registroSection.style.display = "none";
     loginSection.style.display = "block";
-
 });
 
-registroForm.addEventListener("submit", function(event) {
-
+registroForm.addEventListener("submit", event => {
     event.preventDefault();
-    const nombre = document.getElementById("nombre").value;
-    const email = document.getElementById("registroEmail").value;
+
+    const nombre = document.getElementById("nombre").value.trim();
+    const email = document.getElementById("registroEmail").value.trim();
     const password = document.getElementById("registroPassword").value;
     const confirmarPassword = document.getElementById("confirmarPassword").value;
     const registroMensaje = document.getElementById("registroMensaje");
@@ -59,23 +60,30 @@ registroForm.addEventListener("submit", function(event) {
         return;
     }
 
-    const usuario = { nombre: nombre, email: email, password: password};
+    const usuario = {
+        nombre: nombre,
+        email: email,
+        password: password
+    };
+
     localStorage.setItem("usuario", JSON.stringify(usuario));
+
     registroMensaje.textContent = "Cuenta creada correctamente";
     registroMensaje.style.color = "green";
 
-    setTimeout(function() {
+    setTimeout(() => {
         registroSection.style.display = "none";
         loginSection.style.display = "block";
-        registroForm.reset();}, 1000);
-
+        registroForm.reset();
+        registroMensaje.textContent = "";
+    }, 1000);
 });
 
-loginForm.addEventListener("submit", function(event) {
-
+loginForm.addEventListener("submit", event => {
     event.preventDefault();
-    const email = document.getElementById("loginEmail").value;
-    const password = document.getElementById("loginPassword").value;
+
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = loginPassword.value;
     const loginMensaje = document.getElementById("loginMensaje");
     const usuarioGuardado = localStorage.getItem("usuario");
 
@@ -90,12 +98,14 @@ loginForm.addEventListener("submit", function(event) {
     if (email === usuario.email && password === usuario.password) {
         loginMensaje.textContent = "Inicio de sesión correcto";
         loginMensaje.style.color = "green";
-        localStorage.setItem("sesionIniciada", "true");
-        setTimeout(function() {window.location.href = "index.html";}, 1000);
 
+        localStorage.setItem("sesionIniciada", "true");
+
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1000);
     } else {
         loginMensaje.textContent = "Correo o contraseña incorrectos";
         loginMensaje.style.color = "red";
     }
-
 });
