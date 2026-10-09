@@ -25,7 +25,6 @@
 
             <ul class="nav-links">
                 <li>
-                    <a href="#">Inicio</a></li><li>
                     <a href="#productos">Perfumes</a>
                 </li>
 
@@ -107,30 +106,6 @@
 
     </section>
 
-    <section class="reviews">
-
-        <h2 class="opiniones"><span>Opiniones de Clientes</span></h2>
-
-        <div class="review-grid">
-
-            <div class="review-card">
-                <p>"Mucha variedad de perfumes."</p>
-                <span>⭐⭐⭐⭐⭐</span>
-            </div>
-
-            <div class="review-card">
-                <p>"Excelente relación precio-calidad."</p>
-                <span>⭐⭐⭐⭐⭐</span>
-            </div>
-
-            <div class="review-card">
-                <p>"Muy buena experiencia de compra."</p>
-                <span>⭐⭐⭐⭐⭐</span>
-            </div>
-
-        </div>
-    </section>
-
     <div class="modal" id="modalFavoritos">
         <div class="modal-content">
             <button class="cerrar-modal" id="cerrarFavoritos">×</button>
@@ -138,6 +113,35 @@
             <div id="listaFavoritos"></div>
         </div>
     </div>
+
+    <section class="reviews">
+        
+        <h2 class="opiniones">
+            <span>Opiniones de Clientes</span>
+        </h2>
+        
+        <div class="form-opinion">
+
+        <h3>Dejanos tu opinión</h3>
+        <input type="text" id="nombreOpinion" placeholder="Tu nombre">
+        <textarea id="textoOpinion" placeholder="¿Qué te pareció tu experiencia?"></textarea>
+
+        <div class="estrellas">
+            <button type="button" data-estrellas="1">★</button>
+            <button type="button" data-estrellas="2">★</button>
+            <button type="button" data-estrellas="3">★</button>
+            <button type="button" data-estrellas="4">★</button>
+            <button type="button" data-estrellas="5">★</button>
+        </div>
+
+        <button id="publicarOpinion">Publicar opinión</button>
+        <p id="mensajeOpinion"></p>
+
+    </div>
+    <div class="review-grid" id="listaOpiniones">
+    </div>
+
+</section>
 
     <div class="modal" id="modalCarrito">
         <div class="modal-content">

@@ -149,6 +149,13 @@ function obtenerMl(producto) {
 }
 
 function renderProductos(lista) {
+    if (lista.length === 0) {
+        productGrid.innerHTML = `
+            <p class="sin-resultados">No se encontraron resultados</p>
+        `;
+        return;
+    }
+
     productGrid.innerHTML = lista.map((producto, index) => {
         const esFavorito = favoritos.some(item => item.id === producto.id);
 
@@ -468,7 +475,106 @@ document.addEventListener("click", e => {
     }
 });
 
+const nombreOpinion = document.getElementById("nombreOpinion");
+const textoOpinion = document.getElementById("textoOpinion");
+const botonesEstrellas = document.querySelectorAll(".estrellas button");
+const publicarOpinion = document.getElementById("publicarOpinion");
+const listaOpiniones = document.getElementById("listaOpiniones");
+const mensajeOpinion = document.getElementById("mensajeOpinion");
+
+let estrellasSeleccionadas = 0;
+
+botonesEstrellas.forEach(boton => {
+    boton.addEventListener("click", () => {
+        estrellasSeleccionadas = Number(boton.dataset.estrellas);
+
+        botonesEstrellas.forEach(estrella => {
+            if (Number(estrella.dataset.estrellas) <= estrellasSeleccionadas) {
+                estrella.classList.add("seleccionada");
+            } else {
+                estrella.classList.remove("seleccionada");
+            }
+        });
+    });
+});
+
+function mostrarOpiniones() {
+    listaOpiniones.innerHTML = "";
+
+    const opiniones = JSON.parse(localStorage.getItem("opiniones")) || [];
+
+    if (opiniones.length === 0) {
+        listaOpiniones.innerHTML = `
+            <p class="sin-opiniones">
+                Todavía no hay opiniones. ¡Sé el primero en dejar la tuya!
+            </p>
+        `;
+        return;
+    }
+
+    opiniones.forEach(opinion => {
+        const tarjeta = document.createElement("div");
+        tarjeta.classList.add("review-card");
+
+        const nombre = document.createElement("h4");
+        nombre.textContent = opinion.nombre;
+
+        const texto = document.createElement("p");
+        texto.textContent = `"${opinion.texto}"`;
+
+        const estrellas = document.createElement("div");
+        estrellas.classList.add("estrellas-mostradas");
+
+        for (let i = 0; i < opinion.estrellas; i++) {
+            estrellas.textContent += "★";
+        }
+
+        tarjeta.appendChild(nombre);
+        tarjeta.appendChild(texto);
+        tarjeta.appendChild(estrellas);
+
+        listaOpiniones.appendChild(tarjeta);
+    });
+}
+
+publicarOpinion.addEventListener("click", () => {
+    const nombre = nombreOpinion.value.trim();
+    const texto = textoOpinion.value.trim();
+
+    if (nombre === "" || texto === "" || estrellasSeleccionadas === 0) {
+        mensajeOpinion.textContent = "Completá todos los campos y elegí una cantidad de estrellas.";
+        mensajeOpinion.style.color = "red";
+        return;
+    }
+
+    const opiniones = JSON.parse(localStorage.getItem("opiniones")) || [];
+
+    const nuevaOpinion = {
+        nombre: nombre,
+        texto: texto,
+        estrellas: estrellasSeleccionadas
+    };
+
+    opiniones.push(nuevaOpinion);
+
+    localStorage.setItem("opiniones", JSON.stringify(opiniones));
+
+    mensajeOpinion.textContent = "¡Gracias por dejar tu opinión!";
+    mensajeOpinion.style.color = "green";
+
+    nombreOpinion.value = "";
+    textoOpinion.value = "";
+    estrellasSeleccionadas = 0;
+
+    botonesEstrellas.forEach(estrella => {
+        estrella.classList.remove("seleccionada");
+    });
+
+    mostrarOpiniones();
+});
+
 configurarEventosProductos();
 renderProductos(catalogo);
 actualizarCarrito();
 actualizarFavoritos();
+mostrarOpiniones();

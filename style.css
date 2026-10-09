@@ -843,3 +843,96 @@ h2{
     .search-container.active input{width:160px;}
     .product-image{height:280px;}
 }
+
+.form-opinion{
+    max-width:600px;
+    margin:0 auto 40px;
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    text-align:center;
+}
+
+.form-opinion h3{
+    margin-bottom:20px;
+    color:#7A4C3B;
+}
+
+.form-opinion input,
+.form-opinion textarea{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    font-family:'Poppins', sans-serif;
+    outline:none;
+}
+
+.form-opinion textarea{
+    height:100px;
+    resize:none;
+}
+
+.estrellas{
+    margin:10px 0 20px;
+}
+
+.estrellas button{
+    background:none;
+    border:none;
+    font-size:28px;
+    color:#ccc;
+    cursor:pointer;
+}
+
+.estrellas button.seleccionada{
+    color:#7A4C3B;
+}
+
+#publicarOpinion{
+    background:#7A4C3B;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    border-radius:20px;
+    cursor:pointer;
+    font-family:'Poppins', sans-serif;
+}
+
+#publicarOpinion:hover{
+    opacity:.85;
+}
+
+#mensajeOpinion{
+    margin-top:15px;
+}
+
+.review-card{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+}
+
+.review-card h4{
+    color:#7A4C3B;
+    margin-bottom:8px;
+}
+
+.review-card .estrellas-mostradas{
+    margin-top:10px;
+    font-size:18px;
+}
+
+.sin-opiniones {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.sin-resultados {
+    text-align: center;
+    width: 100%;
+    grid-column: 1 / -1;
+}
