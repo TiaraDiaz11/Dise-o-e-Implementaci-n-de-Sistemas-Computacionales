@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Administración | Unlock Fragancias</title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <script src="/js/admin.js" defer></script>
+</head>
+<body>
+    <header>
+        <div>
+            <h1>UNLOCK</h1>
+            <p>Administración de productos</p>
+        </div>
+
+        <a href="/">Ver tienda</a>
+    </header>
+
+    <main>
+        <p id="mensaje" role="status" aria-live="polite"></p>
+
+        <section id="panel" hidden>
+            <div class="acciones">
+                <h2>Productos</h2>
+                <button id="nuevo" type="button">Agregar producto</button>
+            </div>
+
+            <button id="abrirCatalogos" type="button" class="secundario">
+                Marcas y segmentos
+            </button>
+
+            <p>Cada fila corresponde a una presentación del perfume.</p>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Marca</th>
+                            <th>Mililitros</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="listaProductos"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <dialog id="editor">
+        <form id="formProducto">
+            <h2 id="tituloEditor">Agregar producto</h2>
+
+            <div class="campos">
+                <label>
+                    Nombre
+                    <input name="nombre" maxlength="150" required>
+                </label>
+
+                <label>
+                    Marca
+                    <select name="marca_id" required></select>
+                </label>
+
+                <label>
+                    Género
+                    <select name="genero_id" required></select>
+                </label>
+
+                <label>
+                    Segmento
+                    <select name="segmento_id"></select>
+                </label>
+
+                <label>
+                    Familia olfativa
+                    <input name="familia_olfativa" maxlength="100">
+                </label>
+
+                <label>
+                    Notas separadas por comas
+                    <input name="notas" placeholder="Lavanda, vainilla">
+                </label>
+
+                <label class="ancho">
+                    Ruta o URL de imagen
+                    <input
+                        name="imagen"
+                        maxlength="500"
+                        placeholder="/assets/imagenes/perfume.jpg"
+                    >
+                </label>
+
+                <label class="ancho">
+                    Descripción
+                    <textarea
+                        name="descripcion"
+                        rows="3"
+                        maxlength="10000"
+                    ></textarea>
+                </label>
+
+                <label>
+                    Tamaño en ml
+                    <input
+                        name="tamano_ml"
+                        type="number"
+                        min="0.01"
+                        max="9999.99"
+                        step="0.01"
+                        required
+                    >
+                </label>
+
+                <label>
+                    Precio
+                    <input
+                        name="precio"
+                        type="number"
+                        min="0"
+                        max="9999999999.99"
+                        step="0.01"
+                        required
+                    >
+                </label>
+
+                <label>
+                    Stock
+                    <input
+                        name="stock"
+                        type="number"
+                        min="0"
+                        max="2147483647"
+                        step="1"
+                        required
+                    >
+                </label>
+
+                <label class="check">
+                    <input name="activo" type="checkbox" checked>
+                    Producto activo
+                </label>
+
+                <label class="check">
+                    <input name="variante_activa" type="checkbox" checked>
+                    Presentación activa
+                </label>
+            </div>
+
+            <p id="errorEditor" class="error" role="alert"></p>
+
+            <div class="acciones">
+                <button type="submit">Guardar</button>
+                <button id="cancelar" type="button" class="secundario">
+                    Cancelar
+                </button>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog id="confirmacion">
+        <h2>Eliminar producto</h2>
+
+        <p id="textoEliminar"></p>
+        <p>También se eliminarán todas sus presentaciones.</p>
+        <p id="errorEliminar" class="error" role="alert"></p>
+
+        <div class="acciones">
+            <button id="confirmarEliminar" type="button" class="peligro">
+                Eliminar
+            </button>
+
+            <button id="cancelarEliminar" type="button" class="secundario">
+                Cancelar
+            </button>
+        </div>
+    </dialog>
+
+    <dialog id="modalCatalogos">
+    <h2>Marcas y segmentos</h2>
+
+    <label>
+        Administrar
+        <select id="tipoCatalogo">
+            <option value="marcas">Marcas</option>
+            <option value="segmentos">Segmentos</option>
+        </select>
+    </label>
+
+    <form id="formCatalogo">
+        <label>
+            Nombre
+            <input
+                id="nombreCatalogo"
+                maxlength="100"
+                placeholder="Escribí un nombre"
+                required
+            >
+        </label>
+
+        <button type="submit">Agregar</button>
+    </form>
+
+    <p id="mensajeCatalogo" role="status" aria-live="polite"></p>
+
+    <ul id="listaCatalogos" class="lista-catalogos"></ul>
+
+    <div id="confirmarBorradoCatalogo" hidden>
+        <p id="textoBorradoCatalogo"></p>
+
+        <div class="acciones">
+            <button id="aceptarBorradoCatalogo" type="button" class="peligro">
+                Eliminar
+            </button>
+
+            <button id="cancelarBorradoCatalogo" type="button" class="secundario">
+                Cancelar
+            </button>
+        </div>
+    </div>
+
+    <div class="acciones">
+        <button id="cerrarCatalogos" type="button" class="secundario">
+            Cerrar
+        </button>
+    </div>
+</dialog>
+
+</body>
+</html>

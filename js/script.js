@@ -303,7 +303,9 @@ function agregarAlCarrito(producto) {
     const cantidadActual = existente ? existente.cantidad : 0;
 
     if (cantidadActual >= producto.stock) {
-        alert(`Stock disponible: ${producto.stock} unidades.`);
+        mostrarNotificacion(
+            producto.stock <= 0 ? "Esta presentación está sin stock." : `Ya agregaste las ${producto.stock} unidades disponibles.`
+        );
         return;
     }
 

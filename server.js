@@ -7,6 +7,12 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
+app.use("/api/admin", require("./Admin"));
+
+app.get("/admin", (req, res) => {
+    res.sendFile(path.join(__dirname, "Views", "admin.html"));
+});
+
 // Publicar solamente las carpetas del front.
 app.use("/css", express.static(path.join(__dirname, "css")));
 app.use("/js", express.static(path.join(__dirname, "js")));
