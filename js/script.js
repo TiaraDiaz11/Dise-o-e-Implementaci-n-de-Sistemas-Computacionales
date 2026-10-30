@@ -1,3 +1,5 @@
+let catalogo = [];
+
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
 
@@ -35,165 +37,6 @@ const fichaAgregar = document.getElementById("fichaAgregar");
 let productoFicha = null;
 let tarjetaOrigen = null;
 
-/* const catalogo = [
-    {
-        id: 1,
-        nombre: "Le Male Elixir",
-        marca: "Jean Paul Gaultier",
-        precio: 33000,
-        cantidadml: "125ml",
-        genero: "hombre",
-        tipo: "disenador",
-        imagen: "imagenes/leMaleElixir.jpeg",
-        descripcion: "Eau de parfum amaderada e intensa. Bergamota y almizclero en la apertura, lavanda en el corazon y un fondo de vainilla, vetiver y cedro. Excelente para la noche.",
-        notas: ["Bergamota", "Lavanda", "Vainilla", "Cedro"]
-    },
-    {
-        id: 2,
-        nombre: "Good Girl Very",
-        marca: "Carolina Herrera",
-        precio: 41600,
-        cantidadml: "90ml",
-        genero: "mujer",
-        tipo: "disenador",
-        imagen: "imagenes/goodGirlVery.jpeg",
-        descripcion: "Floral oriental y envolvente. Abre con pera y naranja blood, evoluciona hacia un corazon de jazmin y cierra con patchouli y vainilla.",
-        notas: ["Pera", "Jazmin", "Patchouli", "Vainilla"]
-    },
-    {
-        id: 3,
-        nombre: "Invictus",
-        marca: "Paco Rabanne",
-        precio: 21000,
-        cantidadml: "100ml",
-        genero: "hombre",
-        tipo: "disenador",
-        imagen: "imagenes/invictus.jpeg",
-        descripcion: "Acuatico y fresco. Naranja y notas marinas en la salida, con un corazon de lavanda y un fondo de vetiver y almizcle blanco. Hasta 12 horas de duracion.",
-        notas: ["Naranja", "Notas marinas", "Lavanda", "Almizcle"]
-    },
-    {
-        id: 4,
-        nombre: "La Bomba",
-        marca: "Carolina Herrera",
-        precio: 39000,
-        cantidadml: "50ml",
-        genero: "mujer",
-        tipo: "disenador",
-        imagen: "imagenes/laBomba.jpeg",
-        descripcion: "Gourmand intenso. Canela, caramelo y praline en el corazon, sobre una base de vainilla y tonka bean que deja un rastro dulce.",
-        notas: ["Canela", "Caramelo", "Praline", "Vainilla"]
-    },
-    {
-        id: 5,
-        nombre: "Khamrah Qahwa",
-        marca: "Lattafa",
-        precio: 43000,
-        cantidadml: "100ml",
-        genero: "unisex",
-        tipo: "oriental",
-        imagen: "imagenes/lattafaKhamrah.jpg",
-        descripcion: "Es una fragancia cálida, opulenta y de tinte gourmand (dulce y comestible), famosa por su gran parecido conceptual a los postres especiados y licores frente a la chimenea.",
-        notas: ["Canela", "Nuez Moscada" , "Bergamota"]
-    },
-    {
-        id: 6,
-        nombre: "Khamrah Waha",
-        marca: "Lattafa",
-        precio: 43000,
-        cantidadml: "100ml",
-        genero: "unisex",
-        tipo: "Aromática Acuática",
-        imagen: "imagenes/waha.jpg",
-        descripcion: "Inicia con un fuerte chispante cítrico y notas acuáticas/saladas (destacando el pepino y la bergamota) para luego dar paso a un secado dulce, amaderado y avainillado característico del fondo de haba tonka y vainilla",
-        notas: ["Yuzu","Bergamota", "Enebro", "Jengibre"]
-    },
-    {
-        id: 7,
-        nombre: "Le Beau",
-        marca: "Jean Paul Galtier",
-        precio: 40000,
-        cantidadml: "125ml",
-        genero: "hombre",
-        tipo: "Amaderada Aromática",
-        imagen: "imagenes/leBeau-Jean.jpg",
-        descripcion: "Es una fragancia tropical, dulce, fresca y muy seductora, reconocida por su característico toque cremoso de coco combinado con la calidez del haba tonka.",
-        notas: ["Bergamota", "Madera de coco", "Haba Tonka"]
-    },
-    {
-        id: 8,
-        nombre: "Erba Pura",
-        marca: "Xerjoff",
-        precio: 43000,
-        cantidadml: "100ml",
-        genero: "unisex",
-        tipo: "Oriental",
-        imagen: "imagenes/Erba.jpg",
-        descripcion:" Destaca por ser un aroma dulce, alegre, estridente y sumamente almizclado que no pasa desapercibido. Debido a su potencia, se recomienda moderar las aplicaciones para evitar que resulte invasivo en espacios cerrados.",
-        notas: [" Naranja Siciliana", "Bergamota de Calabria", "Limón Siciliano"]
-    },
-    {
-        id: 9,
-        nombre: "Erba Pura Full-BOX",
-        marca: "Xerjoff",
-        precio: 46000,
-        cantidadml: "100ml",
-        genero: "unisex",
-        tipo: "Oriental",
-        imagen: "imagenes/Xerjoff-erba-pura-paquete.jpg",
-        descripcion:" Destaca por ser un aroma dulce, alegre, estridente y sumamente almizclado que no pasa desapercibido. Debido a su potencia, se recomienda moderar las aplicaciones para evitar que resulte invasivo en espacios cerrados. Hecho en una caja más elegante, ideal para resaltar entre el resto.",
-        notas: [" Naranja Siciliana", "Bergamota de Calabria", "Limón Siciliano"]
-    },
-    {
-        id: 10,
-        nombre: "Le Male Le Parfum",
-        marca: "Jean Paul Galtier",
-        precio: 40000,
-        cantidadml: "100ml",
-        genero: "hombre",
-        tipo: "Oriental",
-        imagen: "imagenes/leMale-Jean.jpg",
-        descripcion:"Fragancia masculina intensa, elegante y sofisticada. Combina la frescura aromática del cardamomo con un corazón cálido de lavanda e iris, sobre un fondo envolvente de vainilla y notas amaderadas. Su aroma es profundo, especiado y sensual, ideal para la noche, ocasiones especiales y días frescos..",
-        notas: ["Cardamomo","Lavanda","Iris","Vainilla","Notas amaderadas"]
-    },
-    {
-        id: 11,
-        nombre: "Art Of Universe",
-        marca: "Lattafa",
-        precio: 43000,
-        cantidadml: "100ml",
-        genero: "unisex",
-        tipo: "arabe",
-        imagen: "imagenes/art-lataffa.jpg",
-        descripcion:"Cítrico, frutal y fresco. Abre con notas vibrantes de mandarina y bergamota, acompañadas por el toque especiado del jengibre y la frescura de la menta. En el corazón aparecen la pera jugosa y la flor de azahar, mientras que el almizcle, el ámbar y el cedro aportan un cierre cálido y elegante.",
-        notas: ["Mandarina", "Bergamota", "Pera", "Flor de azahar", "Almizcle", "Ámbar", "Cedro"]
-    },
-    {
-        id: 12,
-        nombre: "Le Male",
-        marca: "Jean Paul Galtier",
-        precio: 40000,
-        cantidadml: "100ml",
-        genero: "hombre",
-        tipo: "Oriental",
-        imagen: "imagenes/leMale-Celeste.jpg",
-        descripcion:"Fragancia masculina fresca, aromática y envolvente. Combina notas verdes y refrescantes con un corazón aromático y un fondo cálido y cremoso, creando un aroma atractivo, moderno y versátil, ideal para destacar tanto de día como de noche.",
-        notas: ["Menta", "Lavanda", "Vainilla","Pimienta blanca","Notas marinas", "Ámbar", "Notas amaderadas"]
-    },
-    {
-        id: 13,
-        nombre: "Le Male Ultra Elixir",
-        marca: "Jean Paul Galtier",
-        precio: 40000,
-        cantidadml: "125ml",
-        genero: "hombre",
-        tipo: "Oriental",
-        imagen: "imagenes/leMale-UltraElixir.jpg",
-        descripcion:"Oriental fougère, dulce e intenso. Abre con una combinación frutal y fresca de pera, lavanda, menta, bergamota y limón. Evoluciona hacia un corazón especiado de canela, esclarea y alcaravea, y cierra con un fondo magnético de vainilla negra, ámbar, pachulí y madera de cedro.",
-        notas: ["Pera","Canela","Vainilla negra","Pachulí"]
-    }
-]; */
-
 async function cargarProductos() {
     productGrid.textContent = "Cargando perfumes…";
 
@@ -208,6 +51,8 @@ async function cargarProductos() {
 
         catalogo = productos;
         aplicarFiltros();
+        actualizarCarrito();
+        actualizarFavoritos();
     } catch (error) {
         console.error("Error al cargar productos:", error);
 
