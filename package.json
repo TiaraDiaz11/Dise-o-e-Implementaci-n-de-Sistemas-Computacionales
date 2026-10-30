@@ -1,0 +1,24 @@
+{
+  "name": "dise-o-e-implementaci-n-de-sistemas-computacionales",
+  "version": "1.0.0",
+  "description": "PAGINA WEB DE PERFUMES:\r - Buscador\r - Precio contado\r - Precio en cuotas\r - Boton agregar a la bolsa o al carrito\r - Agregar a favoritos\r - Metodos de pago (Solo visual por ahora)\r - Imagenes del perfume (1 o 2)\r - Cantidad (30ml, 50ml, 100ml)\r - Categorias (Marcas, hombre, mujer, unisex, todos)\r - Login (Registrarse - iniciar sesion)\r - Api para la ubicacion real del local\r - Descripcion corta del perfume (Diseñador/Arabe, Salida, Corazon y familia olfativa)\r - Contacto (WhatsApp, Instagram)\r - Backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TiaraDiaz11/Dise-o-e-Implementaci-n-de-Sistemas-Computacionales.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/TiaraDiaz11/Dise-o-e-Implementaci-n-de-Sistemas-Computacionales/issues"
+  },
+  "homepage": "https://github.com/TiaraDiaz11/Dise-o-e-Implementaci-n-de-Sistemas-Computacionales#readme",
+  "dependencies": {
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "pg": "^8.23.1"
+  }
+}

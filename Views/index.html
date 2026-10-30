@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unlock Fragancias</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
@@ -17,7 +17,7 @@
         
         <nav class="navbar">
             <div class="logo">
-                <img src="imagenes/logoUnlockFragancias.jpg" alt="Unlock Fragancias" class="logo-img">
+                <img src="/assets/logo.jpg" alt="Unlock Fragancias" class="logo-img">
                 <div class="brand-text">
                     <h1>UNLOCK</h1>
                     <span>FRAGANCIAS</span>
@@ -34,9 +34,9 @@
                     <div class="contacto-opciones" id="contactoOpciones">
 
                         <a href="https://wa.me/5492223500815" target="_blank" rel="noopener noreferrer">
-                            <img src="./assets/whatsapp.png" alt="WhatsApp">WhatsApp</a>
+                            <img src="/assets/whatsapp.png" alt="WhatsApp">WhatsApp</a>
                         <a href="https://www.instagram.com/unlockfragancias__/" target="_blank" rel="noopener noreferrer">
-                            <img src="./assets/Instagram.png" alt="Instagram">Instagram</a>
+                            <img src="/assets/Instagram.png" alt="Instagram">Instagram</a>
 
                     </div>
                 </li>
@@ -183,7 +183,13 @@
         <p class="copyright">© 2026 Unlock Fragancias</p>
     </footer>
 
-    <script src="../js/script.js"></script>
+    <div id="notificacion" class="notificacion" role="status" aria-live="polite" aria-atomic="true">
+        <span class="notificacion__icono" aria-hidden="true">!</span>
+        <p id="notificacionTexto"></p>
+        <button type="button" id="cerrarNotificacion" aria-label="Cerrar notificación"> × </button>
+    </div>
+
+    <script src="/js/script.js"></script>
 
 </body>
 </html>

@@ -936,3 +936,88 @@ h2{
     width: 100%;
     grid-column: 1 / -1;
 }
+
+.product-card button:disabled {
+    background: #777;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.notificacion {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    z-index: 3000;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    width: min(420px, calc(100% - 32px));
+    padding: 16px 18px;
+    box-sizing: border-box;
+
+    background: #fdfbf9;
+    color: #633c30;
+    border: 1px solid #d8b4a0;
+    border-left: 4px solid #7a4c3b;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(60, 35, 25, 0.18);
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, 16px);
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        visibility 0.25s;
+}
+
+.notificacion.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+}
+
+.notificacion__icono {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #efe2d8;
+    font-weight: 600;
+}
+
+.notificacion p {
+    flex: 1;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+#cerrarNotificacion {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: #7a4c3b;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#cerrarNotificacion:hover {
+    background: #efe2d8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .notificacion {
+        transition: none;
+    }
+}

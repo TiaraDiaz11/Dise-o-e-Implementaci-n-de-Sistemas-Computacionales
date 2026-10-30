@@ -194,6 +194,27 @@ let tarjetaOrigen = null;
     }
 ]; */
 
+async function cargarProductos() {
+    productGrid.textContent = "Cargando perfumes…";
+
+    try {
+        const respuesta = await fetch("/api/productos");
+
+        if (!respuesta.ok) { throw new Error(`Error HTTP ${respuesta.status}`); }
+
+        const productos = await respuesta.json();
+
+        if (!Array.isArray(productos)) { throw new Error("El servidor no devolvió una lista"); }
+
+        catalogo = productos;
+        aplicarFiltros();
+    } catch (error) {
+        console.error("Error al cargar productos:", error);
+
+        productGrid.textContent = "No se pudieron cargar los perfumes. Recargá la página para reintentar.";
+    }
+}
+
 function guardarDatosLocal() {
     localStorage.setItem("carrito", JSON.stringify(carrito));
     localStorage.setItem("favoritos", JSON.stringify(favoritos));
@@ -227,7 +248,9 @@ function renderProductos(lista) {
                 <p>${producto.marca}</p>
                 <p class="product-card__ml">${producto.cantidadml}</p>
                 <span>${formatearPrecio(producto.precio)}</span>
-                <button>Agregar al carrito</button>
+                <button ${producto.stock <= 0 ? "disabled" : ""}>
+                  ${producto.stock <= 0 ? "Sin stock" : "Agregar al carrito"}
+                </button>
             </div>
         `;
     }).join("");
@@ -277,6 +300,12 @@ function alternarFavorito(producto, card) {
 
 function agregarAlCarrito(producto) {
     const existente = carrito.find(item => item.id === producto.id);
+    const cantidadActual = existente ? existente.cantidad : 0;
+
+    if (cantidadActual >= producto.stock) {
+        alert(`Stock disponible: ${producto.stock} unidades.`);
+        return;
+    }
 
     if (existente) {
         existente.cantidad++;
@@ -331,9 +360,14 @@ function actualizarCarrito() {
 
     listaCarrito.querySelectorAll(".sumar").forEach(boton => {
         boton.addEventListener("click", () => {
-            carrito[Number(boton.dataset.index)].cantidad++;
-            guardarDatosLocal();
-            actualizarCarrito();
+            const item = carrito[Number(boton.dataset.index)];
+            const producto = catalogo.find(p => p.id === item.id);
+            
+            if (!producto) {
+                mostrarNotificacion("Esta presentación no está disponible en el catálogo.");
+                return;
+            }
+            agregarAlCarrito(producto);
         });
     });
 
@@ -633,8 +667,32 @@ publicarOpinion.addEventListener("click", () => {
     mostrarOpiniones();
 });
 
+const notificacion = document.getElementById("notificacion");
+const notificacionTexto = document.getElementById("notificacionTexto");
+const cerrarNotificacion = document.getElementById("cerrarNotificacion");
+
+let temporizadorNotificacion;
+
+function ocultarNotificacion() {
+    clearTimeout(temporizadorNotificacion);
+    notificacion.classList.remove("visible");
+}
+
+function mostrarNotificacion(mensaje) {
+    clearTimeout(temporizadorNotificacion);
+
+    notificacionTexto.textContent = mensaje;
+    notificacion.classList.add("visible");
+
+    temporizadorNotificacion = setTimeout(() => {
+        ocultarNotificacion();
+    }, 4000);
+}
+
+cerrarNotificacion.addEventListener("click", ocultarNotificacion);
+
 configurarEventosProductos();
-renderProductos(catalogo);
 actualizarCarrito();
 actualizarFavoritos();
 mostrarOpiniones();
+cargarProductos();
