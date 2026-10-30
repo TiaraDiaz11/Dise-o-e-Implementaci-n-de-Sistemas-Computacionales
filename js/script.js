@@ -35,7 +35,7 @@ const fichaAgregar = document.getElementById("fichaAgregar");
 let productoFicha = null;
 let tarjetaOrigen = null;
 
-const catalogo = [
+/* const catalogo = [
     {
         id: 1,
         nombre: "Le Male Elixir",
@@ -192,7 +192,7 @@ const catalogo = [
         descripcion:"Oriental fougère, dulce e intenso. Abre con una combinación frutal y fresca de pera, lavanda, menta, bergamota y limón. Evoluciona hacia un corazón especiado de canela, esclarea y alcaravea, y cierra con un fondo magnético de vainilla negra, ámbar, pachulí y madera de cedro.",
         notas: ["Pera","Canela","Vainilla negra","Pachulí"]
     }
-];
+]; */
 
 function guardarDatosLocal() {
     localStorage.setItem("carrito", JSON.stringify(carrito));
