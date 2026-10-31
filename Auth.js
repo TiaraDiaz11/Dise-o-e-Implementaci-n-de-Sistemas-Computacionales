@@ -166,6 +166,24 @@ router.get("/yo", async (req, res) => {
     });
 });
 
+router.post("/logout", (req, res) => {
+    req.session.destroy((error) => {
+        if (error) {
+            console.error("Error al cerrar sesión:", error.message);
+
+            return res.status(500).json({
+                error: "No se pudo cerrar la sesión."
+            });
+        }
+
+        res.clearCookie("unlock.sid", { path: "/" });
+
+        res.json({
+            mensaje: "Sesión cerrada."
+        });
+    });
+});
+
 router.use((error, req, res, next) => {
     if (error.code === "23505") {
         return res.status(409).json({

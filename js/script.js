@@ -539,12 +539,26 @@ function mostrarNotificacion(mensaje) {
 cerrarNotificacion.addEventListener("click", ocultarNotificacion);
 
 
-async function actualizarAccesoAdmin() {
+let usuarioActual = null;
+
+const botonUsuario = document.getElementById("enlaceUsuario");
+const opcionesUsuario = document.getElementById("opcionesUsuario");
+const cuentaMenu = document.getElementById("cuentaMenu");
+
+function cerrarMenuUsuario() {
+    opcionesUsuario.hidden = true;
+    botonUsuario.setAttribute("aria-expanded", "false");
+}
+
+async function actualizarSesionVisual() {
     const enlaceAdmin = document.getElementById("enlaceAdmin");
+    const iconoUsuario = document.getElementById("iconoUsuario");
+    const inicialUsuario = document.getElementById("inicialUsuario");
 
-    if (!enlaceAdmin) return;
-
+    usuarioActual = null;
     enlaceAdmin.style.display = "none";
+    iconoUsuario.style.removeProperty("display");
+    inicialUsuario.hidden = true;
 
     try {
         const respuesta = await fetch("/api/auth/yo", {
@@ -556,16 +570,87 @@ async function actualizarAccesoAdmin() {
         }
 
         const datos = await respuesta.json();
+        usuarioActual = datos.usuario;
 
-        if (datos.usuario?.admin === true) {
+        if (!usuarioActual) return;
+
+        if (usuarioActual.admin === true) {
             enlaceAdmin.style.removeProperty("display");
         }
+
+        const inicial =
+            Array.from(usuarioActual.nombre.trim())[0] || "?";
+
+        inicialUsuario.textContent = inicial.toLocaleUpperCase("es");
+        inicialUsuario.hidden = false;
+        iconoUsuario.style.display = "none";
+
+        botonUsuario.title = usuarioActual.nombre;
+        botonUsuario.setAttribute(
+            "aria-label",
+            `Abrir opciones de ${usuarioActual.nombre}`
+        );
     } catch (error) {
         console.error(error.message);
+    } finally {
+        botonUsuario.disabled = false;
     }
 }
 
-actualizarAccesoAdmin();
+botonUsuario.addEventListener("click", () => {
+    if (!usuarioActual) {
+        window.location.href = "/Views/login.html";
+        return;
+    }
+
+    opcionesUsuario.hidden = !opcionesUsuario.hidden;
+
+    botonUsuario.setAttribute(
+        "aria-expanded",
+        String(!opcionesUsuario.hidden)
+    );
+});
+
+document.addEventListener("click", (event) => {
+    if (!cuentaMenu.contains(event.target)) {
+        cerrarMenuUsuario();
+    }
+});
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !opcionesUsuario.hidden) {
+        cerrarMenuUsuario();
+        botonUsuario.focus();
+    }
+});
+
+document.getElementById("cerrarSesion").addEventListener(
+    "click",
+    async (event) => {
+        const boton = event.currentTarget;
+        const mensaje = document.getElementById("errorSesion");
+
+        boton.disabled = true;
+        mensaje.textContent = "";
+
+        try {
+            const respuesta = await fetch("/api/auth/logout", {
+                method: "POST"
+            });
+
+            if (!respuesta.ok) {
+                throw new Error("No se pudo cerrar la sesión.");
+            }
+
+            window.location.replace("/Views/index.html");
+        } catch (error) {
+            mensaje.textContent = error.message;
+            boton.disabled = false;
+        }
+    }
+);
+
+actualizarSesionVisual();
 configurarEventosProductos();
 actualizarCarrito();
 actualizarFavoritos();

@@ -89,6 +89,31 @@ app.get(
     }
 );
 
+app.get(["/login", "/Views/login.html"], async (req, res) => {
+    res.set("Cache-Control", "no-store");
+
+    try {
+        if (req.session.usuarioId) {
+            const resultado = await pool.query(
+                "SELECT id FROM usuarios WHERE id = $1",
+                [req.session.usuarioId]
+            );
+
+            if (resultado.rowCount > 0) {
+                return res.redirect("/Views/index.html");
+            }
+        }
+
+        res.sendFile(
+            path.join(__dirname, "Views", "login.html")
+        );
+    } catch (error) {
+        console.error("Error al comprobar sesión:", error.message);
+
+        res.status(500).send("No se pudo comprobar la sesión.");
+    }
+});
+
 // Publicar solamente las carpetas del front.
 app.use("/css", express.static(path.join(__dirname, "css")));
 app.use("/js", express.static(path.join(__dirname, "js")));

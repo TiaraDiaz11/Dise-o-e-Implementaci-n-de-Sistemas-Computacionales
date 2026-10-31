@@ -77,13 +77,20 @@
                     <span id="contador">0</span>
 
                 </div>
-                <a href="/Views/login.html" id="enlaceUsuario" class="icon-container icono-usuario" title="Iniciar sesión" aria-label="Iniciar sesión">
-                    <svg id="iconoUsuario" class="icon-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <circle cx="12" cy="8" r="4"></circle>
-                        <path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"></path>
-                    </svg>
-                    <span id="inicialUsuario" class="avatar-usuario" hidden></span>
-                </a>
+                <div class="cuenta-menu" id="cuentaMenu">
+                    <button type="button" id="enlaceUsuario" class="icon-container icono-usuario" aria-label="Iniciar sesión" aria-expanded="false" aria-controls="opcionesUsuario" disabled>
+                        <svg id="iconoUsuario" class="icon-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <circle cx="12" cy="8" r="4"></circle>
+                            <path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"></path>
+                        </svg>
+                        <span id="inicialUsuario" hidden></span>
+                    </button>
+                    
+                    <div id="opcionesUsuario" hidden>
+                        <button type="button" id="cerrarSesion"> Cerrar sesión </button>
+                        <p id="errorSesion" role="alert"></p>
+                    </div>
+                </div>
             </div>
 
             </div>

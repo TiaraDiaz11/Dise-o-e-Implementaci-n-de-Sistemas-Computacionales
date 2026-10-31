@@ -1021,3 +1021,90 @@ h2{
         transition: none;
     }
 }
+
+#inicialUsuario {
+    position: static;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border-radius: 50%;
+    background: #81513f;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+    transform: none;
+}
+
+#inicialUsuario[hidden] {
+    display: none;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+}
+
+.icons .icon-container,
+.icons .search-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icons .icon-svg {
+    display: block;
+}
+
+.cuenta-menu {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+#enlaceUsuario {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    line-height: 1;
+    cursor: pointer;
+}
+
+#opcionesUsuario {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    min-width: 160px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: white;
+    z-index: 100;
+}
+
+#opcionesUsuario[hidden] {
+    display: none;
+}
+
+#cerrarSesion {
+    width: 100%;
+    padding: 10px;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+#errorSesion {
+    margin: 0;
+    color: #a32020;
+    font-size: 12px;
+}
