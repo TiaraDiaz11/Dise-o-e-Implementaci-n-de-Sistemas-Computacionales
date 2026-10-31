@@ -538,6 +538,34 @@ function mostrarNotificacion(mensaje) {
 
 cerrarNotificacion.addEventListener("click", ocultarNotificacion);
 
+
+async function actualizarAccesoAdmin() {
+    const enlaceAdmin = document.getElementById("enlaceAdmin");
+
+    if (!enlaceAdmin) return;
+
+    enlaceAdmin.style.display = "none";
+
+    try {
+        const respuesta = await fetch("/api/auth/yo", {
+            cache: "no-store"
+        });
+
+        if (!respuesta.ok) {
+            throw new Error("No se pudo consultar la sesión.");
+        }
+
+        const datos = await respuesta.json();
+
+        if (datos.usuario?.admin === true) {
+            enlaceAdmin.style.removeProperty("display");
+        }
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+actualizarAccesoAdmin();
 configurarEventosProductos();
 actualizarCarrito();
 actualizarFavoritos();

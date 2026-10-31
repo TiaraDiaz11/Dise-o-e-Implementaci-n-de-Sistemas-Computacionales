@@ -3,24 +3,9 @@ const pool = require("./db");
 
 const router = express.Router();
 
-// Control de acceso para todas las rutas administrativas.
+// El acceso se comprueba con exigirAdmin en server.js.
 router.use((req, res, next) => {
     res.set("Cache-Control", "no-store");
-
-    // Lo utilizaremos cuando exista el sistema de usuarios.
-    const esAdministrador = req.usuario?.rol === "admin";
-
-    // Permiso provisional para probar el panel localmente.
-    const modoDesarrollo =
-        process.env.ADMIN_DEV_MODE === "true" &&
-        process.env.NODE_ENV !== "production";
-
-    if (!esAdministrador && !modoDesarrollo) {
-        return res.status(403).json({
-            error: "Esta sección requiere un usuario administrador."
-        });
-    }
-
     next();
 });
 
@@ -344,6 +329,44 @@ router.delete("/productos/:id", async (req, res) => {
     }
 
     res.json({ ok: true });
+});
+
+router.post("/usuarios/otorgar-admin", async (req, res) => {
+    if (req.get("origin") !== process.env.APP_ORIGIN) {
+        return res.status(403).json({
+            error: "Origen no permitido."
+        });
+    }
+
+    const email = typeof req.body?.email === "string"
+        ? req.body.email.trim().toLowerCase()
+        : "";
+
+    if (
+        email.length > 254 ||
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    ) {
+        return res.status(400).json({
+            error: "Ingresá un correo válido."
+        });
+    }
+
+    const resultado = await pool.query(`
+        UPDATE usuarios
+        SET admin = TRUE
+        WHERE email = $1
+        RETURNING nombre, email
+    `, [email]);
+
+    if (resultado.rowCount === 0) {
+        return res.status(404).json({
+            error: "No existe una cuenta registrada con ese correo."
+        });
+    }
+
+    const usuario = resultado.rows[0];
+
+    res.json({mensaje: `${usuario.nombre} (${usuario.email}) ya tiene permisos de administrador.`});
 });
 
 // Responder los errores sin enviar detalles internos de PostgreSQL.

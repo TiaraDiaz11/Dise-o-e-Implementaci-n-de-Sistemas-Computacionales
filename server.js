@@ -1,17 +1,93 @@
 const express = require("express");
 const path = require("path");
 const pool = require("./db");
+const session = require("express-session");
+const PgSession = require("connect-pg-simple")(session);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-app.use("/api/admin", require("./Admin"));
+if (!process.env.SESSION_SECRET || !process.env.APP_ORIGIN) {
+    throw new Error("Faltan SESSION_SECRET o APP_ORIGIN en el archivo .env");
+}
 
-app.get("/admin", (req, res) => {
-    res.sendFile(path.join(__dirname, "Views", "admin.html"));
-});
+app.use(session({
+    name: "unlock.sid",
+
+    store: new PgSession({
+        pool,
+        tableName: "sesiones",
+        createTableIfMissing: true
+    }),
+
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+
+    cookie: {
+        httpOnly: true,
+        sameSite: "strict",
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 24 * 60 * 60 * 1000
+    }
+}));
+
+app.use("/api/auth", require("./Auth"));
+
+async function exigirAdmin(req, res, next) {
+    res.set("Cache-Control", "no-store");
+
+    const esPeticionAPI = req.originalUrl.startsWith("/api/admin");
+
+    if (!req.session.usuarioId) {
+        if (esPeticionAPI) {
+            return res.status(401).json({
+                error: "Primero tenés que iniciar sesión."
+            });
+        }
+
+        return res.redirect("/Views/login.html");
+    }
+
+    try {
+        const resultado = await pool.query(
+            "SELECT admin FROM usuarios WHERE id = $1",
+            [req.session.usuarioId]
+        );
+
+        const usuario = resultado.rows[0];
+
+        if (!usuario || usuario.admin !== true) {
+            if (esPeticionAPI) {
+                return res.status(403).json({
+                    error: "Acceso exclusivo para administradores."
+                });
+            }
+
+            return res.status(403).send(
+                "Acceso exclusivo para administradores."
+            );
+        }
+
+        next();
+    } catch (error) {
+        console.error("Error al comprobar permisos:", error.message);
+
+        res.status(500).send("No se pudieron comprobar los permisos.");
+    }
+}
+
+app.use("/api/admin", exigirAdmin, require("./Admin"));
+
+app.get(
+    ["/admin", "/Views/admin.html"],
+    exigirAdmin,
+    (req, res) => {
+        res.sendFile(path.join(__dirname, "Views", "admin.html"));
+    }
+);
 
 // Publicar solamente las carpetas del front.
 app.use("/css", express.static(path.join(__dirname, "css")));

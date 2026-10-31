@@ -419,3 +419,47 @@ $("aceptarBorradoCatalogo").addEventListener("click", async () => {
 });
 
 iniciar();
+
+const formPermisos = document.getElementById("formPermisos");
+
+formPermisos.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const email = document
+        .getElementById("emailAdministrador")
+        .value.trim()
+        .toLowerCase();
+
+    const mensaje = document.getElementById("mensajePermisos");
+    const boton = formPermisos.querySelector('button[type="submit"]');
+
+    if (!confirm(`¿Otorgar permisos de administrador a ${email}?`)) {
+        return;
+    }
+
+    boton.disabled = true;
+    mensaje.textContent = "Guardando permisos…";
+
+    try {
+        const respuesta = await fetch("/api/admin/usuarios/otorgar-admin", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email })
+        });
+
+        const resultado = await respuesta.json();
+
+        if (!respuesta.ok) {
+            throw new Error(resultado.error || "No se pudieron otorgar permisos.");
+        }
+
+        mensaje.textContent = resultado.mensaje;
+        formPermisos.reset();
+    } catch (error) {
+        mensaje.textContent = error.message;
+    } finally {
+        boton.disabled = false;
+    }
+});

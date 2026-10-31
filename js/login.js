@@ -45,67 +45,98 @@ volverLogin.addEventListener("click", event => {
     loginSection.style.display = "block";
 });
 
-registroForm.addEventListener("submit", event => {
+registroForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const nombre = document.getElementById("nombre").value.trim();
     const email = document.getElementById("registroEmail").value.trim();
     const password = document.getElementById("registroPassword").value;
-    const confirmarPassword = document.getElementById("confirmarPassword").value;
-    const registroMensaje = document.getElementById("registroMensaje");
+    const confirmarPassword =
+        document.getElementById("confirmarPassword").value;
+
+    const mensaje = document.getElementById("registroMensaje");
+    const boton = registroForm.querySelector('button[type="submit"]');
 
     if (password !== confirmarPassword) {
-        registroMensaje.textContent = "Las contraseñas no coinciden";
-        registroMensaje.style.color = "red";
+        mensaje.textContent = "Las contraseñas no coinciden.";
+        mensaje.style.color = "red";
         return;
     }
 
-    const usuario = {
-        nombre: nombre,
-        email: email,
-        password: password
-    };
+    boton.disabled = true;
+    mensaje.textContent = "Creando cuenta…";
+    mensaje.style.color = "";
 
-    localStorage.setItem("usuario", JSON.stringify(usuario));
+    try {
+        const respuesta = await fetch("/api/auth/registro", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nombre,
+                email,
+                password
+            })
+        });
 
-    registroMensaje.textContent = "Cuenta creada correctamente";
-    registroMensaje.style.color = "green";
+        const resultado = await respuesta.json();
 
-    setTimeout(() => {
-        registroSection.style.display = "none";
-        loginSection.style.display = "block";
+        if (!respuesta.ok) { throw new Error(resultado.error || "No se pudo crear la cuenta."); }
+
+        mensaje.textContent = resultado.mensaje;
+        mensaje.style.color = "green";
+
         registroForm.reset();
-        registroMensaje.textContent = "";
-    }, 1000);
+    } catch (error) {
+        mensaje.textContent = error.message;
+        mensaje.style.color = "red";
+    } finally {
+        boton.disabled = false;
+    }
 });
 
-loginForm.addEventListener("submit", event => {
+loginForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const email = document.getElementById("loginEmail").value.trim();
     const password = loginPassword.value;
-    const loginMensaje = document.getElementById("loginMensaje");
-    const usuarioGuardado = localStorage.getItem("usuario");
+    const mensaje = document.getElementById("loginMensaje");
+    const boton = loginForm.querySelector('button[type="submit"]');
 
-    if (!usuarioGuardado) {
-        loginMensaje.textContent = "Primero tenés que crear una cuenta";
-        loginMensaje.style.color = "red";
-        return;
-    }
+    boton.disabled = true;
+    mensaje.textContent = "Iniciando sesión…";
+    mensaje.style.color = "";
 
-    const usuario = JSON.parse(usuarioGuardado);
+    try {
+        const respuesta = await fetch("/api/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email,
+                password
+            })
+        });
 
-    if (email === usuario.email && password === usuario.password) {
-        loginMensaje.textContent = "Inicio de sesión correcto";
-        loginMensaje.style.color = "green";
+        const resultado = await respuesta.json();
 
-        localStorage.setItem("sesionIniciada", "true");
+        if (!respuesta.ok) {
+            throw new Error(
+                resultado.error || "No se pudo iniciar sesión."
+            );
+        }
 
-        setTimeout(() => {
-            window.location.href = "index.html";
-        }, 1000);
-    } else {
-        loginMensaje.textContent = "Correo o contraseña incorrectos";
-        loginMensaje.style.color = "red";
+        // Quitar los datos del sistema anterior.
+        localStorage.removeItem("usuario");
+        localStorage.removeItem("sesionIniciada");
+
+        window.location.href = "/Views/index.html";
+    } catch (error) {
+        mensaje.textContent = error.message;
+        mensaje.style.color = "red";
+    } finally {
+        boton.disabled = false;
     }
 });

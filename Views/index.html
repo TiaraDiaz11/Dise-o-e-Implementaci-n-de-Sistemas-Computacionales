@@ -41,7 +41,7 @@
                     </div>
                 </li>
                 <li>
-                    <a href="/admin">Administración</a>
+                    <a href="/admin" id="enlaceAdmin" style="display: none;"> Administración </a>
                 </li>
             </ul>
 
@@ -77,14 +77,13 @@
                     <span id="contador">0</span>
 
                 </div>
-
-                <a href="login.html" class="icon-container icono-usuario" title="Mi cuenta">
-                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none">
+                <a href="/Views/login.html" id="enlaceUsuario" class="icon-container icono-usuario" title="Iniciar sesión" aria-label="Iniciar sesión">
+                    <svg id="iconoUsuario" class="icon-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                         <circle cx="12" cy="8" r="4"></circle>
                         <path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"></path>
                     </svg>
+                    <span id="inicialUsuario" class="avatar-usuario" hidden></span>
                 </a>
-
             </div>
 
             </div>

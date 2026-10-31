@@ -49,6 +49,18 @@
                     <tbody id="listaProductos"></tbody>
                 </table>
             </div>
+
+            <section aria-labelledby="tituloPermisos">
+                <h2 id="tituloPermisos">Otorgar permisos de administrador</h2>
+                <p>El usuario debe tener una cuenta registrada.</p>
+                
+                <form id="formPermisos">
+                    <label for="emailAdministrador">Correo del usuario</label>
+                    <input id="emailAdministrador" type="email" maxlength="254" placeholder="usuario@correo.com" required>
+                    <button type="submit">Otorgar permisos</button>
+                </form>
+                <p id="mensajePermisos" role="status" aria-live="polite"></p>
+            </section>
         </section>
     </main>
 
