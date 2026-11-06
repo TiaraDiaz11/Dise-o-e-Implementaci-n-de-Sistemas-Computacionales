@@ -64,15 +64,19 @@ Tienda web de perfumes y fragancias desarrollada como proyecto de la materia **D
 1. Clonar el repositorio:
    ```bash
    git clone https://github.com/TiaraDiaz11/Dise-o-e-Implementaci-n-de-Sistemas-Computacionales.git
-   cd Dise-o-e-Implementaci-n-de-Sistemas-Computacionales
    ```
+   
+2. Ingresar a la carpeta:
+```bash
+cd Dise-o-e-Implementaci-n-de-Sistemas-Computacionales
+```
 
-2. Instalar las dependencias:
+3. Instalar las dependencias:
    ```bash
    npm install
    ```
 
-3. Crear un archivo `.env` en la raíz del proyecto con las variables de entorno:
+4. Crear un archivo `.env` en la raíz del proyecto con las variables de entorno:
    ```env
        DATABASE_URL=postgresql://neondb_owner:npg_KL6e1xafrGPF@ep-frosty-mouse-b6cqc996-pooler.c-2.sa-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
        PORT=3000
@@ -81,12 +85,12 @@ Tienda web de perfumes y fragancias desarrollada como proyecto de la materia **D
        APP_ORIGIN=http://localhost:3000
    ```
 
-4. Iniciar el servidor:
+5. Iniciar el servidor:
    ```bash
    node server.js
    ```
 
-5. Abrir el navegador en `http://localhost:3000`.
+6. Abrir el navegador en `http://localhost:3000`.
 
 ## 📅 Planificación
 
