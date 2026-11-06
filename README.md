@@ -15,15 +15,13 @@ Tienda web de perfumes y fragancias desarrollada como proyecto de la materia **D
 
 - 🔍 Buscador de perfumes
 - 🗂️ Categorías: marcas, hombre, mujer, unisex y todos
-- 💵 Precio de contado y precio en cuotas
+- 💵 Precio de contado 
 - 🛒 Botón para agregar a la bolsa / carrito
 - ❤️ Agregar a favoritos
 - 📏 Selección de cantidad: 30 ml, 50 ml o 100 ml
 - 🖼️ Imágenes de cada perfume (1 o 2)
 - 📝 Descripción corta: tipo (diseñador / árabe), notas de salida, corazón y familia olfativa
-- 💳 Métodos de pago *(por ahora solo visual)*
 - 🔐 Registro e inicio de sesión
-- 📍 API para mostrar la ubicación real del local
 - 📞 Contacto por WhatsApp e Instagram
 - ⚙️ Backend con panel de administración
 
@@ -96,8 +94,8 @@ En la carpeta `Gantt y Curva S` se encuentra el cronograma del proyecto (diagram
 
 ## 📌 Estado del proyecto
 
-En desarrollo. Los métodos de pago son por ahora solo visuales.
+Terminado. Los métodos de pago son por ahora solo visuales.
 
 ## 📄 Licencia
 
-Proyecto académico sin licencia definida.
+Proyecto académico sin licencia definida realizado por los alumnos de 7mo 5ta Grupo 1 Equipo 4.
